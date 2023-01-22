@@ -1,0 +1,287 @@
+
+! ========================================================= !
+! ===  waveguide simulation                             === !
+! ========================================================= !
+
+! ------------------------------------------------- !
+! --- [1] Global Simulation Settings            --- !
+! ------------------------------------------------- !
+
+Check Keywords "Warn"
+
+Header
+  Mesh DB "." "model"
+  Include Path ""
+  Results Directory ""
+End
+
+Simulation
+  Coordinate System           = String "Cartesian"
+  Coordinate Mapping(3)       = 1 2 3
+
+  Simulation Type             = Steady
+  Steady State Max Iterations = Integer 1
+  Output Intervals            = Integer 1
+  Timestepping Method         = BDF
+  BDF Order                   = Integer 1
+  
+  Solver Input File           = "waveguide.sif"
+  Output File                 = "waveguide.dat"
+  Post File                   = "vectorhelmholtz.vtu"
+End
+
+Constants
+  ! Do NOT write down - permeability - an error somehow occurs...!!!
+  ! Permeability of Vacuum      = 1.2566e-06
+  ! Permittivity of Vacuum      = 8.8542e-12
+End
+
+! ------------------------------------------------- !
+! --- [2] Body & Material Settings              --- !
+! ------------------------------------------------- !
+
+Body 1
+  Target Bodies(1)       = 301
+  Name                   = "wavepath"
+
+  Equation               = 1
+  Material               = 1
+  Initial Condition      = 1
+End
+
+Material 1
+  Name                   = "Air"
+  Electric Conductivity  = 0.0
+  Relative Permittivity  = 1.0
+  Relative Permeability  = 1.0
+End
+
+
+! ------------------------------------------------- !
+! --- [3] Equation & Solver Settings            --- !
+! ------------------------------------------------- !
+
+$ freq  = 5.001e8
+$ wg_a  = 0.3810
+$ wg_b  = 0.1905
+$ wg_L  = 1.2138478633282366
+$ wAmp  = 1.0
+
+$ mmode = 1
+$ nmode = 0
+$ epsil = 8.854e-12
+$ mu    = 4.0*pi*10^-7
+$ c0    = 1.0 / sqrt( epsil * mu )
+$ omega = 2.0 * pi * freq
+$ k0    = omega / c0
+$ kx    = mmode * pi / wg_a
+$ ky    = nmode * pi / wg_b
+$ kc    = sqrt( kx^2 + ky^2 )
+$ beta0 = sqrt( k0^2 - kc^2 )
+$ Acoef = omega * mu * kx * wAmp / kc^2
+$ sigma = 5.e3
+$ Zp_m  = sqrt( 0.5 * mu * omega / sigma )
+$ alp_m = omega * mu / Zp_m
+! alpha_for_metal = -i / ( 1 - i ) * alp_m = ( 1-i ) / 2 * alp_m ...> set this value as B.C.
+
+
+Equation 1
+  Name                                     = "waveguide_EMpath"
+  Active Solvers(3)                        = 1 2 3
+  Angular Frequency                        = Real $omega
+End
+
+
+Solver 1
+  Equation                                 = "VectorHelmholtzEquation"
+  Procedure                                = "VectorHelmholtz" "VectorHelmholtzSolver"
+  Variable                                 = E[E re:1 E im:1]
+  Exec Solver                              = String "Always"
+  
+  Use Piola Transform                      = Logical True
+  Optimize Bandwidth                       = Logical True
+  Linear System Symmetric                  = Logical False
+  Linear System Scaling                    = Logical True
+  Linear System Solver                     = String "Iterative"
+  ! -- Method :: ( BiCGStabl / gmres ) -- !
+  Linear System Iterative Method           = String "gmres" ! or "BiCGStabl"
+  ! Linear System Iterative Method           = String "BiCGStabl" ! or "gmres"
+  ! BiCGstabl polynomial degree              = Integer 4
+
+  Steady State Convergence Tolerance       = Real 1.0e-9
+
+  Linear System Preconditioning            = String "vanka"
+  Linear System ILUT Tolerance             = Real    3.0e-3
+  Linear System Max Iterations             = Integer 5000
+  Linear System Convergence Tolerance      = Real    1.0e-9
+  Linear System Abort Not Converged        = Logical False
+  Linear System Residual Output            = Integer 8
+  Linear System Preconditioning Damp Coefficient    = Real 0.0
+  Linear System Preconditioning Damp Coefficient im = Real 1.0
+  
+End
+
+
+Solver 2
+  Equation                                 = "calcFields"
+  Procedure                                = "VectorHelmholtz" "VectorHelmholtzCalcFields"
+  ! Field Variable                           = String "E"
+  Exec Solver                              = String "Always"
+  Use Piola Transform                      = Logical True
+  Optimize Bandwidth                       = Logical False ! "True"
+  Linear System Symmetric                  = Logical False
+  Linear System Scaling                    = Logical True
+  Linear System Solver                     = String "Iterative"
+  Linear System Iterative Method           = String "BiCGStabl" ! "CG"
+  BiCGstabl polynomial degree              = Integer 4
+  
+  Calculate Elemental Fields               = Logical False
+  Calculate Magnetic Field Strength        = Logical True
+  Calculate Electric Field                 = Logical True
+  Calculate Poynting Vector                = Logical True
+  Calculate Magnetic Flux Density          = Logical True
+  Calculate Div of Poynting Vector         = Logical True
+  
+  Steady State Convergence Tolerance       = 1.0e-9
+  Exported Variable 1                      = -dofs 3 Eref_re
+
+  Linear System Preconditioning            = String "None"
+  Linear System ILUT Tolerance             = Real    1e-5
+  Linear System Max Iterations             = Integer 5000
+  Linear System Convergence Tolerance      = Real    1.0e-9
+  Linear System Abort Not Converged        = Logical False
+  Linear System Residual Output            = Integer 10
+  Linear System Preconditioning Damp Coefficient    = Real 0.0
+  Linear System Preconditioning Damp Coefficient im = Real 1.0
+  
+End
+
+
+Solver 3
+  Equation  = "SaveScalars"
+  Procedure = "SaveData" "SaveScalars"
+  FileName  = "dat/waveguide_scalars.dat"
+End
+
+
+! ------------------------------------------------- !
+! --- [4] Body Forces / Initial Conditions      --- !
+! ------------------------------------------------- !
+
+Initial Condition 1
+  Eref_re 1 = Real MATC "0.0"
+  Eref_re 2 = Variable coordinate 1, coordinate 3
+         Real MATC "sin(kx*tx(0))*( sin( beta0*tx(1) ) - sin( -beta0*tx(1)+2.0*beta0*wg_L) )"
+  Eref_re 3 = Real MATC "0.0"
+  
+  ! Eref_re 2 = Variable coordinate 1, coordinate 3
+  ! Real MATC "( -1.0 )*Acoef*sin( kx*tx(0) )*sin( beta0*tx(1) )"
+  
+End
+
+
+! ------------------------------------------------- !
+! --- [5] Boundary Conditions                   --- !
+! ------------------------------------------------- !
+
+Boundary Condition 1
+
+  Target Boundaries(1)          = 201
+  Name                          = "inport"
+  
+  ! ------------------------------------ !
+  ! -- Port Feed condition            -- !
+  ! ------------------------------------ !
+  ! -- alpha = i \beta                -- !
+  ! -- g = 2 i \beta * ( n x E ) x n  -- !
+  ! ------------------------------------ !
+  Electric Robin Coefficient    = Real $ 0.0
+  Electric Robin Coefficient im = Real $ beta0
+  Magnetic Boundary Load 2      = Variable Coordinate 1
+      Real MATC "-2.0*beta0*k0/kc*sin(kx*tx)"
+      ! Real MATC "(-2.0)*beta0*Acoef*sin(kx*tx)"
+
+End
+
+
+Boundary Condition 2
+
+  Target Boundaries(1)          = 202
+  Name                          = "outport"
+
+  ! ------------------------------------ !
+  ! -- PEC condition                  -- !
+  ! ------------------------------------ !
+  ! -- perfect conductor ( nxE = 0 )  -- !
+  ! --  E re {e} = 0.0                -- !
+  ! --  E im {e} = 0.0                -- !
+  ! ------------------------------------ !
+  ! E re {e} = 0.0
+  ! E im {e} = 0.0
+
+  ! ------------------------------------ !
+  ! -- Impedance condition            -- !
+  ! ------------------------------------ !
+  ! -- alpha = i \beta                -- !
+  ! -- g = 2 i \beta * ( n x E ) x n  -- !
+  ! ------------------------------------ !
+  ! Electric Robin Coefficient    = Real $ (  0.5 ) * alp_m
+  ! Electric Robin Coefficient im = Real $ ( -0.5 ) * alp_m
+  ! Magnetic Boundary Load 2      = Real $ 0.0
+  ! Magnetic Boundary Load 2 im   = Real $ 0.0
+
+
+  ! ------------------------------------ !
+  ! -- Neumann condition              -- !
+  ! ------------------------------------ !
+  ! -- alpha = 0.0                    -- !
+  ! -- g     = 0.0                    -- !
+  ! ------------------------------------ !
+  Electric Robin Coefficient    = Real $ 0.0
+  Electric Robin Coefficient im = Real $ 0.0
+  Magnetic Boundary Load 2      = Real $ 0.0
+  Magnetic Boundary Load 2 im   = Real $ 0.0
+  
+End
+
+
+Boundary Condition 3
+
+  Target Boundaries(1)          = 203
+  Name                          = "sidewall"
+
+  ! ------------------------------------ !
+  ! -- PEC condition                  -- !
+  ! ------------------------------------ !
+  ! -- perfect conductor ( nxE = 0 )  -- !
+  ! --  E re {e} = 0.0                -- !
+  ! --  E im {e} = 0.0                -- !
+  ! ------------------------------------ !
+  E re {e} = 0.0
+  E im {e} = 0.0
+
+  ! ------------------------------------ !
+  ! -- Impedance condition            -- !
+  ! ------------------------------------ !
+  ! -- alpha = i \beta                -- !
+  ! -- g = 2 i \beta * ( n x E ) x n  -- !
+  ! ------------------------------------ !
+  ! Electric Robin Coefficient    = Real $ (  0.5 ) * alp_m
+  ! Electric Robin Coefficient im = Real $ ( -0.5 ) * alp_m
+  ! Magnetic Boundary Load 2      = Real $ 0.0
+  ! Magnetic Boundary Load 2 im   = Real $ 0.0
+
+
+  ! ------------------------------------ !
+  ! -- Neumann condition              -- !
+  ! ------------------------------------ !
+  ! -- alpha = 0.0                    -- !
+  ! -- g     = 0.0                    -- !
+  ! ------------------------------------ !
+  ! Electric Robin Coefficient    = Real $ 0.0
+  ! Electric Robin Coefficient im = Real $ 0.0
+  ! Magnetic Boundary Load 2      = Real $ 0.0
+  ! Magnetic Boundary Load 2 im   = Real $ 0.0
+  
+End
+

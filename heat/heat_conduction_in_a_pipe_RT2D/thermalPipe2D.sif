@@ -1,0 +1,106 @@
+
+Header
+  CHECK KEYWORDS    Warn
+  Mesh DB           "." "msh/model"
+  Include Path      ""
+  Results Directory "out/"
+End
+
+Simulation
+ Coordinate System           = Cartesian
+ Coordinate Mapping(3)       = 1 2 3
+ Simulation Type             = Transient
+ Steady State Max Iterations = 1
+ Output Intervals            = 1
+ Timestepping Method         = BDF
+ BDF Order                   = 1
+ TimeStep Intervals(1)       = 200
+ TimeStep Sizes(1)           = 10.0
+ Post File                   = output.vtu
+End
+
+Constants
+  Gravity(4)                 = 0 -1 0 9.82
+  Stefan Boltzmann           = 5.67e-08
+  Permittivity of Vacuum     = 8.8542e-12
+  Boltzmann Constant         = 1.3807e-23
+  Unit Charge                = 1.602e-19
+End
+
+
+Body 1
+  Target Bodies(1)           = 201
+  Name                       = "disk1"
+  Equation                   = 1
+  Material                   = 1
+  Initial Condition          = 1
+End
+
+Body 2
+  Target Bodies(1)           = 202
+  Name                       = "disk2"
+  Equation                   = 1
+  Material                   = 1
+  Initial Condition          = 1
+End
+
+Body 3
+  Target Bodies(1)           = 203
+  Name                       = "disk3"
+  Equation                   = 1
+  Material                   = 1
+  Initial Condition          = 1
+End
+
+
+Solver 1
+  Equation                                 = Heat Equation
+  Procedure                                = "HeatSolve" "HeatSolver"
+  Variable                                 = Temperature
+  Exec Solver                              = Always
+  
+  Nonlinear System Convergence Tolerance   = 1.0e-8
+  Nonlinear System Max Iterations          = 100
+  
+  Linear System Solver                     = Iterative
+  Linear System Iterative Method           = BiCGStab
+  BiCGstabl polynomial degree              = 2
+  Linear System Max Iterations             = 1000
+  Linear System Preconditioning            = ILU0
+
+End
+
+
+Equation 1
+  Name                  = "HeatEquation"
+  Active Solvers(1)     = 1
+  Heat Equation         = True
+End
+
+
+Material 1
+  Name                  = "Cupper"
+  Heat Conductivity     = 398.0    ! W/m.K
+  Heat Capacity         = 379.0    ! J/kg.K
+  Reference Temperature = 293.0    ! K
+  Density               = 8.96e+3  ! kg/m3 
+End
+
+Material 2
+  Name                  = "Air"
+  Heat Conductivity     = 31.45e-3 ! W/m.K
+  Heat Capacity         = 1009     ! J/kg.K
+  Density               = 1.20e0   ! kg/m3
+End
+
+Boundary Condition 1
+  Name                  = "circle3"
+  Target Boundaries(1)  = 103
+  Temperature           = 500.0    ! K
+End
+
+Initial Condition  1
+  Temperature           = 280.0    ! K
+End
+
+  

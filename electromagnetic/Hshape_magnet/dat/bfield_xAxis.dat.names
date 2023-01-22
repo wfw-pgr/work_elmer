@@ -1,0 +1,31 @@
+Variables in file: dat/bfield_xAxis.dat
+Elmer version: 8.4
+Elmer revision: 0131a585
+Elmer compilation date: 2020-02-29
+Solver input file: Hshape_magnet.sif
+File started at: 2020/06/09 10:45:52
+Number of data nodes for each step
+  bc nodes: 0
+  polyline nodes: 101
+  circle nodes: 0
+  isocurve nodes: 0
+Data on different columns
+  1: Iteration step
+  2: Boundary condition
+  3: Node index
+  4: coordinate 1
+  5: coordinate 2
+  6: coordinate 3
+  7: av
+  8: magnetic flux density 1
+  9: magnetic flux density 2
+ 10: magnetic flux density 3
+ 11: current density 1
+ 12: current density 2
+ 13: current density 3
+ 14: magnetic flux density e 1
+ 15: magnetic flux density e 2
+ 16: magnetic flux density e 3
+ 17: current density e 1
+ 18: current density e 2
+ 19: current density e 3

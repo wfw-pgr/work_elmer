@@ -1,0 +1,235 @@
+! ========================================================= !
+! ===  H-Shape Magnet and coil  ( B-Field )             === !
+! ========================================================= !
+
+! ------------------------------------------------- !
+! --- [1] Global Simulation Settings            --- !
+! ------------------------------------------------- !
+
+CHECK KEYWORDS "Warn"
+
+Header
+  Mesh DB "." "model"
+  Include Path ""
+  Results Directory ""
+End
+
+Simulation
+  coordinate system           = "Cartesian"
+  Coordinate Mapping(3)       = 1 2 3
+
+  Simulation Type             = "Steady State"
+  Steady State Max Iterations = 1
+  
+  Solver Input File           = "Hshape_magnet3D.sif"
+  Output File                 = "Hshape_magnet3D.dat"
+  Post File                   = "Hshape_magnet3D.vtu"
+End
+
+
+Constants
+  Permeability of Vacuum = 1.2566e-06
+End
+
+
+! ------------------------------------------------- !
+! --- [2] Body & Material Settings              --- !
+! ------------------------------------------------- !
+
+Body 1
+  Target Bodies(1) = 305 
+  Name             = "Coil"
+
+  Equation         = 1
+  Material         = 1
+  Body Force       = 1
+End
+
+Body 2
+  Target Bodies(3) = 302 303 306
+  Name             = "Core"
+
+  Equation         = 2
+  Material         = 2
+End
+
+Body 3
+  Target Bodies(3) = 301 304 307
+  Name             = "Air"
+
+  Equation         = 2
+  Material         = 3
+End
+
+
+Material 1
+  Name                  = "Cupper"
+  Electric Conductivity = 5.0e7
+  Relative Permittivity = 1.0
+  Relative Permeability = 1.0
+End
+
+Material 2
+  Name                  = "Iron"
+  Electric Conductivity = 1.0e7
+  Relative Permittivity = 1.0
+  Relative Permeability = 5000
+
+  H-B Curve(38,2) = Real
+      INCLUDE dat/HBcurve.dat
+End
+
+Material 3
+  Name                  = "Air"
+  Electric Conductivity = 0.0
+  Relative Permittivity = 1.0
+  Relative Permeability = 1.0
+End
+
+
+! ------------------------------------------------- !
+! --- [3] Equation & Solver Settings            --- !
+! ------------------------------------------------- !
+
+Equation 1
+  Name              = "MagneticField_in_Coil"
+  Active Solvers(3) = 1 2 3
+End
+
+Equation 2
+  Name              = "MagneticField_in_Material"
+  Active Solvers(2) = 2 3
+End
+
+
+Solver 1
+  Equation                            = "CoilSolver"
+  Procedure                           = "CoilSolver" "CoilSolver"
+
+  Linear System Solver                = "Iterative"
+  Linear System Preconditioning       = "ILU1"
+  Linear System Max Iterations        = 3000
+  Linear System Convergence Tolerance = 1e-08
+  Linear System Iterative Method      = "BiCGStabL"
+  Linear System Residual Output       = 20
+  Linear System Symmetric             = True
+  Steady State Convergence Tolerance  = 1e-06
+
+  Desired Coil Current                = Real 1.76e6
+  Nonlinear System Consistent Norm    = True
+
+End
+
+Solver 2
+  Equation                            = "WhitneySolver"
+  Procedure                           = "MagnetoDynamics" "WhitneyAVSolver"
+  Variable                            = String "AV"
+  Variable Dofs                       = 1
+
+  Linear System Solver                = "Iterative"
+  Linear System Iterative Method      = "BiCGStab"
+  Linear System Max Iterations        = 3000
+  Linear System Convergence Tolerance = 1.0e-5
+  Linear System Preconditioning       = "None"
+  Linear System Symmetric             = True
+
+  Steady State Convergence Tolerance       = 1.0e-5
+  Nonlinear System Convergence Tolerance   = 1.0e-5
+  Nonlinear System Max Iterations          = 100
+  Nonlinear System Newton After Iterations = 10
+  Nonlinear System Newton After Tolerance  = 1.0e-5
+  Nonlinear System Relaxation Factor       = 0.5
+End
+
+Solver 3
+  Equation                            = "MGDynamicsCalc"
+  Procedure                           = "MagnetoDynamics" "MagnetoDynamicsCalcFields"
+  Potential Variable                  = String "AV"
+
+  Calculate Current Density           = Logical True
+  Calculate Magnetic Field Strength   = Logical True
+
+  Steady State Convergence Tolerance  = 0
+  Linear System Solver                = "Iterative"
+  Linear System Preconditioning       = None
+  Linear System Residual Output       = 0
+  Linear System Max Iterations        = 5000
+  Linear System Iterative Method      = "CG"
+  Linear System Convergence Tolerance = 1.0e-8
+  Linear System Symmetric             = True
+
+  Nonlinear System Consistent Norm    = Logical True
+  ! Impose Body Force Potential         = Logical True
+  ! Impose Body Force Current           = Logical True
+  Discontinuous Bodies                = True
+End
+
+! Solver 4
+!   Equation                            = "Save Scalar3"
+!   Procedure                           = "SaveData" "SaveScalars" 
+!   Exec Solver                         = After Simulation
+  
+!   Filename                            = output.dat
+!   Save Coordinates (150,3)            = Real INCLUDE dat/coordinates.dat
+!   Exact Coordinates                   = True 
+!   Variable 1                          = AV
+! End
+
+! ------------------------------------------------- !
+! --- [4] Body Forces / Initial Conditions      --- !
+! ------------------------------------------------- !
+
+Body Force 1
+! -- Give the driving external potential -- !
+  Electric Potential = Equals "CoilPot"
+End
+
+
+! Body Force 1
+!   Name              = "CoilCurrentSource"
+!   Current Density 1 = Equals "CoilCurrent e 1"
+!   Current Density 2 = Equals "CoilCurrent e 2"
+!   Current Density 3 = Equals "CoilCurrent e 3"
+! End
+
+
+! ------------------------------------------------- !
+! --- [5] Boundary Conditions                   --- !
+! ------------------------------------------------- !
+
+Boundary Condition 1
+  Name                 = "x=0 Boundary"
+  Target Boundaries(1) = 201
+  AV {e} 2             = 0.0
+  AV {e} 3             = 0.0
+End
+
+Boundary Condition 2
+  Name                 = "current out"
+  Target Boundaries(1) = 202
+  Coil Start           = True
+  AV {e} 2             = 0.0
+  AV {e} 3             = 0.0
+End
+
+Boundary Condition 3
+  Name                 = "current in"
+  Target Boundaries(1) = 203
+  Coil End             = True
+  AV {e} 2             = 0.0
+  AV {e} 3             = 0.0
+End
+
+Boundary Condition 4
+  Name                    = "z=0 Boundary"
+  Target Boundaries(1)    = 205
+  ! AV {f} 1                = 0.0
+  ! AV {f} 2                = 0.0
+End
+
+Boundary Condition 5
+  Name                 = "Far Boundary"
+  Target Boundaries(2) = 204 206
+  AV {e}               = 0.0
+End
+

@@ -1,0 +1,80 @@
+
+CHECK KEYWORDS "Warn"
+
+Header
+  Mesh DB "." "model"
+  Include Path ""
+  Results Directory ""
+End
+
+Simulation
+  coordinate system = "Cartesian 3D"
+  Coordinate Mapping(3) = 1 2 3
+
+  Simulation Type = "Steady State"
+  Steady State Max Iterations = 20
+  
+  Solver Input File = "elastic_linear.sif"
+  Output File = "elastic_linear.dat"
+  Post File = "elastic_linear.vtu"
+End
+
+
+Constants
+  Gravity(4) = 0 0 -1 9.82
+End
+
+
+Body 1
+  Target Bodies(1) = 301
+  Name = "beam"
+
+  Equation = 1
+  Material = 1
+End
+
+
+Solver 1
+  Exec Solver   = "Always"
+  Equation      = "Stress Analysis"
+  Procedure     = "StressSolve" "StressSolver"
+  Variable      = "Displacement"
+  Variable Dofs = 3
+  Linear System Solver = "Iterative"
+  Linear System Iterative Method = "BiCGStab"
+  Linear System Max Iterations = 10000
+  Linear System Convergence Tolerance = 1.0e-6
+  Linear System Preconditioning = "ILU0"
+  Steady State Convergence Tolerance = 1.0e-6
+End
+
+
+Equation 1
+  Name = "StressAnalysis"
+  Active Solvers(1) = 1
+End
+
+
+Material 1
+  Name           = "Iron_SS400"
+  Youngs Modulus = 200.0e9
+  Poisson Ratio  = 0.3
+End
+
+
+Boundary Condition 1
+  Name = "Fixed_Surface"
+  Target Boundaries(1) = 202
+
+  Displacement 1 = 0
+  Displacement 2 = 0
+  Displacement 3 = 0
+End
+
+
+Boundary Condition 2
+  Name = "Load_Surface"
+  Target Boundaries(1) = 201
+  Force 3 = -5.00e7
+
+End

@@ -1,0 +1,125 @@
+
+CHECK KEYWORDS "Warn"
+
+Header
+  Mesh DB "." "model"
+  Include Path ""
+  Results Directory ""
+End
+
+Simulation
+  coordinate system = "Cartesian 2D"
+  ! Coordinate Mapping(2) = 1 2
+
+  Simulation Type = "Steady State"
+  Steady State Max Iterations = 20
+  
+  Solver Input File = "capacitor_2d.sif"
+  Output File = "capacitor_2d.dat"
+  Post File = "capacitor_2d.vtu"
+End
+
+
+Constants
+  Permittivity Of Vacuum = 8.8542e-12
+End
+
+Body 1
+  Target Bodies(2) = 201 202
+  Name = "capacitor"
+
+  Equation = 1
+  Material = 1
+
+End
+
+Body 2
+
+  Target Bodies(1) = 203
+  Name = "Air"
+
+  Equation = 1
+  Material = 2
+  
+End
+
+
+Equation 1
+  Name = "Electrostatic potential"
+  Active Solvers(2) = 1 2
+End
+
+
+Solver 1
+  Equation      = "Electrostatic Solver"
+  Variable      = "potential"
+  Variable Dofs = 1
+  Procedure     = "StatElecSolve" "StatElecSolver"
+  Calculate Electric Field  = True
+  Calculate Electric Flux   = False
+  Calculate Electric Energy = True
+  Calculate Surface Charge  = True
+  potential Difference      = 1.0e4
+  Linear System Solver                     = "Iterative"
+  Linear System Iterative Method           = "BiCGStab"
+  Linear System Max Iterations             = 300
+  Linear System Convergence Tolerance      = 1.0e-7
+  Linear System Preconditioning            = "ILU1"
+  Steady State Convergence Tolerance       = 1.0e-6
+  Nonlinear System Max Iterations          = 1
+  Nonlinear System Convergence Tolerance   = 1.0e-4
+  Nonlinear System Newton After Tolerance  = 1.0e-3
+  Nonlinear System Newton After Iterations = 10
+  Nonlinear System Relaxation Factor       = 1
+  Steady State Convergence Tolerance       = 1.0e-4
+End
+
+Solver 2
+  Equation  = "Electric Force"
+  Procedure = "ElectricForce" "StatElecForce"
+End
+
+Solver 3
+  Exec Solver = "After All"
+  Equation    = "SaveScalars"
+  Procedure   = "SaveData" "SaveScalars"
+  FileName    = "scalars.dat"
+End
+
+
+Material 1
+  Name                  = "Air"
+  Relative Permittivity = 1.0
+End
+
+
+Material 2
+  Name                  = "Metal"
+  Relative Permittivity = 1.0
+End
+
+
+Boundary Condition 1
+  Name = "upper plate"
+  Target Boundaries(1) = 101
+  potential = 1.0e4
+  Calculate Electric Force = True
+
+End
+
+Boundary Condition 2
+  Name = "lower plate"
+  Target Boundaries(1) = 102
+  potential = 0.0
+
+  Calculate Electric Force = True
+
+End
+
+Boundary Condition 3
+  Name = "simulation boundary"
+  Target Boundaries(1) = 103
+
+  ! potential = 0.0
+End
+

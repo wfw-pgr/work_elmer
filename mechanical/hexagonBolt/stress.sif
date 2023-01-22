@@ -1,0 +1,91 @@
+Header
+  CHECK KEYWORDS Warn
+  Mesh DB "." "model"
+  Include Path ""
+  Results Directory ""
+End
+
+
+Simulation
+  Coordinate System = "Cartesian 3D"
+  Coordinate Mapping(3) = 1 2 3
+
+  Simulation TYpe = "Steady State"
+  Steady State Max Iterations = 1
+
+  Output File = "stress.dat"
+  Post File   = "stress.vtu"
+End
+
+
+Constants
+  Gravity(4) = 0 -1 0 9.82
+End
+
+
+Body 1
+  Target Bodies(1) = 301
+  Name = "hexaBolt"
+  Equation = 1
+  Material = 1
+End
+
+
+Solver 1
+  Exec Solver = "Always"
+  Equation = "Stress Analysis"
+  Variable  = "Displacement"
+  Variable Dofs = 3
+  Linear System Solver = "Iterative"
+  Linear System Iterative Method = "BiCGStab"
+  Linear System Max Iterations = 300
+  Linear System Convergence Tolerance = 1.0e-8
+  Linear System Preconditioning = "ILU0"
+  Steady State Convergence Tolerance = 1.0e-5
+  Nonlinear System Convergence Tolerance = 1.0e-3
+  Nonlinear System Max Iterations = 1
+End
+
+
+Equation 1
+  Name = "StressAnalysis"
+  Stress Analysis = True
+  Calculate Stresss = Logical False
+End
+
+
+Material 1
+  Name = "hexaBolt"
+  Youngs Modulus = 200e9
+  Poisson Ratio  = 0.3
+End
+
+
+
+Boundary Condition 1
+  Name = "Bottom_Constraint"
+  Target Boundaries(1) = 201
+
+  Displacement 1 = 0
+  Displacement 2 = 0
+  Displacement 3 = 0
+End
+
+
+Boundary Condition 2
+  Name = "Top_Constraint"
+  Target Boundaries(1) = 202
+
+  Force 3 = Variable Coordinate 3
+    Real
+      1 0
+      2 0
+      3 -1.0000e+08
+    End
+End
+
+
+Boundary Condition 3
+  Name = "other"
+  Target Boundaries(1) = 203
+End

@@ -1,0 +1,9 @@
+air		surf		4
+coil+		surf		2
+coil-		surf		3
+
+air1		line		1
+air2		line		2
+air3		line		3
+air4		line		4
+

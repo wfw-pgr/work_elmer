@@ -1,0 +1,198 @@
+! ========================================================= !
+! ===  ring and core                                    === !
+! ========================================================= !
+
+! ------------------------------------------------- !
+! --- [1] Global Simulation Settings            --- !
+! ------------------------------------------------- !
+
+CHECK KEYWORDS "Warn"
+
+Header
+  Mesh DB "." "model"
+  Include Path ""
+  Results Directory ""
+End
+
+Simulation
+  coordinate system           = "Cartesian"
+  Coordinate Mapping(3)       = 1 2 3
+
+  Simulation Type             = "Steady State"
+  Steady State Max Iterations = 1
+  
+  Solver Input File           = "ring_and_core.sif"
+  Output File                 = "ring_and_core.dat"
+  Post File                   = "ring_and_core.vtu"
+End
+
+
+Constants
+  Permeability of Vacuum = 1.2566e-06
+End
+
+
+! ------------------------------------------------- !
+! --- [2] Body & Material Settings              --- !
+! ------------------------------------------------- !
+
+Body 1
+  Target Bodies(2) = 301 302
+  Name             = "coil"
+
+  Equation         = 1
+  Material         = 1
+  Body Force       = 1
+End
+
+Body 2
+  Target Bodies(2) = 303 304
+  Name             = "core"
+
+  Equation         = 2
+  Material         = 2
+End
+
+Body 3
+  Target Bodies(4) = 305 306 307 308
+  Name             = "Air"
+
+  Equation         = 2
+  Material         = 3
+End
+
+
+Material 1
+  Name                  = "Cupper"
+  Electric Conductivity = 5.0e4
+  Relative Permittivity = 1.0
+  Relative Permeability = 1.0
+End
+
+Material 2
+  Name                  = "Iron"
+  Electric Conductivity = 5.0e4
+  Relative Permittivity = 1.0
+  Relative Permeability = 2000.0
+
+  B-H Curve(38,2) = Real
+      INCLUDE BHcurve.dat
+End
+
+Material 3
+  Name                  = "Air"
+  Electric Conductivity = 0.0
+  Relative Permittivity = 1.0
+  Relative Permeability = 1.0
+End
+
+
+Component 1
+  Name                    = "Coil"
+  Coil Type               = "test"
+  Master Bodies(1)        = 1
+  Desired Coil Current    = +1.0e5
+End
+
+! ------------------------------------------------- !
+! --- [3] Equation & Solver Settings            --- !
+! ------------------------------------------------- !
+
+Equation 1
+  Name              = "MagneticField_in_Coil"
+  Active Solvers(3) = 1 2 3
+End
+
+Equation 2
+  Name              = "MagneticField_in_Air"
+  Active Solvers(2) = 2 3
+End
+
+
+Solver 1
+  Equation                            = "CoilSolver"
+  Procedure                           = "CoilSolver" "CoilSolver"
+
+  Linear System Solver                = "Iterative"
+  Linear System Preconditioning       = "ILU1"
+  Linear System Max Iterations        = 1000
+  Linear System Convergence Tolerance = 1e-08
+  Linear System Iterative Method      = "BiCGStabL"
+  Linear System Residual Output       = 20
+  Steady State Convergence Tolerance  = 1e-06
+
+  Optimize Bandwidth                  = True
+  Nonlinear System Consistent Norm    = True
+  Coil Closed                         = Logical True
+  Narrow Interface                    = Logical False
+
+  Normalize Coil Current              = Logical True
+  Save Coil Set                       = Logical False
+  Save Coil Index                     = Logical False
+  Calculate Elemental Fields          = Logical True
+End
+
+Solver 2
+  Equation                            = "WhitneySolver"
+  Variable                            = "AV"
+  Variable Dofs                       = 1
+  Procedure                           = "MagnetoDynamics" "WhitneyAVSolver"
+
+  Linear System Solver                = "Iterative"
+  Linear System Iterative Method      = "BiCGStab"
+  Linear System Max Iterations        = 3000
+  Linear System Convergence Tolerance = 1.0e-4
+  Linear System Preconditioning       = "None"
+  Linear System Symmetric             = True
+
+  Steady State Convergence Tolerance       = 1.0e-5
+  Nonlinear System Convergence Tolerance   = 1.0e-8
+  Nonlinear System Max Iterations          = 3
+  Nonlinear System Newton After Iterations = 3
+  Nonlinear System Newton After Tolerance  = 1.0e-8
+  Nonlinear System Relaxation Factor       = 0.5
+End
+
+Solver 3
+  Equation                            = "MGDynamicsCalc"
+  Procedure                           = "MagnetoDynamics" "MagnetoDynamicsCalcFields"
+  Potential Variable                  = String "AV"
+
+  Calculate Current Density           = Logical True
+  Calculate Magnetic Field Strength   = Logical True
+
+  Steady State Convergence Tolerance  = 0
+  Linear System Solver                = "Iterative"
+  Linear System Preconditioning       = None
+  Linear System Residual Output       = 0
+  Linear System Max Iterations        = 5000
+  Linear System Iterative Method      = "CG"
+  Linear System Convergence Tolerance = 1.0e-8
+  Linear System Symmetric             = True
+
+  Nonlinear System Consistent Norm    = Logical True
+  Discontinuous Bodies                = True
+End
+
+
+! ------------------------------------------------- !
+! --- [4] Body Forces / Initial Conditions      --- !
+! ------------------------------------------------- !
+
+Body Force 1
+  Name              = "CoilCurrentSource"
+  Current Density 1 = Equals "CoilCurrent e 1"
+  Current Density 2 = Equals "CoilCurrent e 2"
+  Current Density 3 = Equals "CoilCurrent e 3"
+End
+
+
+! ------------------------------------------------- !
+! --- [5] Boundary Conditions                   --- !
+! ------------------------------------------------- !
+
+Boundary Condition 1
+  Name = "Far Boundary"
+  Target Boundaries(8) = 201 202 203 204 205 206 207 208
+  AV {e}               = 0.0
+End

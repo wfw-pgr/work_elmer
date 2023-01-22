@@ -1,0 +1,156 @@
+! ========================================================= !
+! ===  ringCoil in axi-symmetric 2D case                === !
+! ========================================================= !
+
+! ------------------------------------------------- !
+! --- [1] Global Simulation Settings            --- !
+! ------------------------------------------------- !
+
+CHECK KEYWORDS "Warn"
+
+Header
+  Mesh DB "." "model"
+  Include Path ""
+  Results Directory ""
+End
+
+Simulation
+  coordinate system           = "Axi symmetric"
+  ! coordinate system           = "Cartesian 2D"
+  Coordinate Mapping(3)       = 1 3 2
+
+  Simulation Type             = "Steady State"
+  Steady State Max Iterations = 1
+  
+  Solver Input File           = "ringCoil.sif"
+  Output File                 = "ringCoil.dat"
+  Post File                   = "ringCoil.vtu"
+End
+
+Constants
+  Permeability of Vacuum      = 1.2566e-06
+End
+
+! ------------------------------------------------- !
+! --- [2] Body & Material Settings              --- !
+! ------------------------------------------------- !
+
+Body 1
+  Target Bodies(2)       = 202 203
+  Name                   = "coil"
+
+  Equation               = 1
+  Material               = 1
+  Body Force             = 1
+End
+
+Body 2
+  Target Bodies(1)       = 201
+  Name                   = "Air"
+
+  Equation               = 1
+  Material               = 2
+End
+
+
+Material 1
+  Name                   = "Metal"
+  Electric Conductivity  = 5.95e7
+  Relative Permittivity  = 1.0
+  Relative Permeability  = 1.0
+End
+
+Material 2
+  Name                   = "Air"
+  Electric Conductivity  = 0.0
+  Relative Permittivity  = 1.0
+  Relative Permeability  = 1.0
+End
+
+
+! ------------------------------------------------- !
+! --- [3] Equation & Solver Settings            --- !
+! ------------------------------------------------- !
+
+Equation 1
+  Name                   = "MagneticField"
+  Active Solvers(2)      = 1 2
+End
+
+
+Solver 1
+  Equation                            = "MgDyn2D"
+  Procedure                           = "MagnetoDynamics2D" "MagnetoDynamics2D"
+  Variable                            = String "AV"
+
+  Linear System Solver                = "Iterative"
+  Linear System Iterative Method      = "BiCGStab"
+  Linear System Max Iterations        = 3000
+  Linear System Convergence Tolerance = 1.0e-7
+  Linear System Preconditioning       = "None"
+  Linear System Symmetric             = True
+End
+
+Solver 2
+  Equation                            = "MGDynamicsCalc"
+  Procedure                           = "MagnetoDynamics" "MagnetoDynamicsCalcFields"
+  Potential Variable                  = String "AV"
+
+  Calculate Current Density           = Logical True
+  Calculate Magnetic Field Strength   = Logical True
+
+  Steady State Convergence Tolerance  = 0
+  Linear System Solver                = "Iterative"
+  Linear System Preconditioning       = None
+  Linear System Residual Output       = 0
+  Linear System Max Iterations        = 5000
+  Linear System Iterative Method      = "CG"
+  Linear System Convergence Tolerance = 1.0e-8
+  Linear System Symmetric             = True
+
+  ! Calculate Nodal Fields              = Logical False
+  ! Impose Body Force Potential         = Logical True
+  ! Impose Body Force Current           = Logical True
+  ! Discontinuous Bodies                = True
+End
+
+
+! ------------------------------------------------- !
+! --- [4] Body Forces / Initial Conditions      --- !
+! ------------------------------------------------- !
+
+Body Force 1
+! -- Give the driving external potential -- !
+  Current Density = Real 1.e5
+End
+
+
+! ------------------------------------------------- !
+! --- [5] Boundary Conditions                   --- !
+! ------------------------------------------------- !
+
+Boundary Condition 1
+  Name = "Far Boundary"
+  ! Target Boundaries(4) = 101 102 103 104
+  Target Boundaries(3) = 101 103 104
+  AV {e} = 0.0
+End
+
+
+
+! Solver 1
+!   Equation                            = "CoilSolver"
+!   Procedure                           = "CoilSolver" "CoilSolver"
+
+!   Linear System Solver                = "Iterative"
+!   Linear System Preconditioning       = "ILU1"
+!   Linear System Max Iterations        = 1000
+!   Linear System Convergence Tolerance = 1e-08
+!   Linear System Iterative Method      = "BiCGStabL"
+!   Linear System Residual Output       = 20
+!   Steady State Convergence Tolerance  = 1e-06
+!   Linear System Symmetric             = True
+
+!   Desired Coil Current                = Real 2.0
+!   Nonlinear System Consistent Norm    = True
+! End

@@ -1,0 +1,167 @@
+include "./msh/model/mesh.names"
+
+Header
+  Mesh DB "." "msh/model"
+  Include Path ""
+  Results Directory ""
+End
+
+
+Simulation
+  Max Output Level            = 3
+  Coordinate System           = Cartesian 2D
+  Coordinate Mapping(3)       = 1 2 3
+
+  Simulation Type             = transient
+  timestep sizes(1)           = 100e-3
+  timestep intervals(1)       = 200
+  Timestepping method         = BDF
+  BDF Order                   = 2
+
+  Steady State Max Iterations = 100
+
+  Output Intervals            = 1
+End
+
+
+Constants
+  Gravity(4)			= 0 -1 0 9.82
+  Stefan Boltzmann		= 5.67e-8
+End
+
+
+Body 1
+  Name				= "Body1"
+  Target Bodies(1)		= $fluid
+  Equation			= 1
+  Material			= 1
+End
+
+Equation 1
+  Name				= "Equation1"
+! Navier-Stokes			= True
+  Active Solvers(2)		= 1 2
+! Concentration Units		= String Absolute Mass
+  Convection			= Computed
+End
+
+!Equation 2
+!	Name = "Advection Diffusion"
+!	Advection Diffusion Equation Temperature = Logical True
+!	Convection = Constant
+!	Active Solvers = 2
+!End
+
+Solver 2
+	Equation				= Advection Diffusion
+	Variable				= Temperature
+	Variable DOFs				= 1
+	Procedure				= "AdvectionDiffusion" "AdvectionDiffusionSolver"
+
+	Linear System Solver			= Iterative
+	Linear System Iterative Method		= BiCGStab
+	Linear System Max Iterations		= 200
+	Linear System Convergence Tolerance	= 1e-4
+	Linear System Preconditioning		= ILU1
+	Linear System ILUT Tolerance		= 1e-3
+
+
+	Nonlinear system Convergence Tolerance	= 1e-4
+	Nonlinear System Max Iterations		= 100
+	Nonlinear System Relaxation Factor	= 0.9
+
+	Steady State Convergence Tolerance	= 1e-5
+	Stabilize				= False	!If set true, Error occured
+End
+
+Solver 1
+   Equation					= "Navier-Stokes"
+
+   Linear System Solver				= Iterative
+   Linear System Iterative Method		= BiCGStab
+   Linear System Max Iterations			= 1000
+
+   Stabilization Method				= String Stabilized
+
+   Linear System Convergence Tolerance		= 1.0e-9
+   Linear System Preconditioning		= ILU0
+   Linear System Residual Output		= 1
+   Steady State Convergence Tolerance		= 1.0e-5
+
+   Nonlinear System Convergence Tolerance	= 1.0e-5
+   Nonlinear System Max Iterations		= 50
+   Nonlinear System Newton After Iterations	= 10
+   Nonlinear System Newton After Tolerance	= 1.0e-2
+   Nonlinear System Relaxation Factor		= 1.0
+End
+
+
+
+Material 1
+  Name				= "Material1"
+  Density			= 1.0
+  Viscosity			= 17e-6
+  
+  Temperature Diffusivity	= Real 100e-6
+  Convection Velocity 1		= 1
+  Convection Velocity 2		= 0
+End
+
+
+Boundary Condition 1
+  Name				= "left"
+
+  Target Boundaries		= $left
+
+   Velocity 1			= 1.0
+   Velocity 2			= 0
+   Temperature			= real 0
+End
+
+
+Boundary Condition 2
+  Name				= "right"
+  Target Boundaries		= $right
+  Pressure			= 0
+End
+
+Boundary Condition 3
+  Name				= "bottom"
+  Target Boundaries		= $bottom
+
+   Velocity 1			= 0
+   Velocity 2			= 0
+   Temperature			= real 1
+End
+
+Boundary Condition 4
+  Name				= "top"
+  Target Boundaries		= $top
+
+   Velocity 1			= 0
+   Velocity 2			= 0
+   Temperature			= real 1
+End
+
+Boundary Condition 5
+  Name				= "cylinder"
+  Target Boundaries		= $circle
+
+   Velocity 1			= 0
+   Velocity 2			= 0
+   Temperature			= real 1
+End
+
+Solver 3
+    Exec Solver			= after timestep
+    Equation			= "ResultOutput"
+    Procedure			= "ResultOutputSolve" "ResultOutputSolver"
+    Output File Name		= "fluid-therm."
+    Output Format		= vtk
+    Vtk Format			= Logical True
+    Vector Field 1		= velocity
+    Scalar Field 1		= pressure
+    Scalar Field 2		= Temperature
+End
+
+

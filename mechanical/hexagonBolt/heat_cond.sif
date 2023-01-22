@@ -1,0 +1,77 @@
+Header
+  CHECK KEYWORDS Warn
+  Mesh DB "." "model"
+  Include Path ""
+  Results Directory ""
+End
+
+
+Simulation
+  Coordinate System = "Cartesian 3D"
+  Coordinate Mapping(3) = 1 2 3
+
+  Simulation TYpe = "Steady State"
+  Steady State Max Iterations = 1
+
+  Output File = "heat_cond.dat"
+  Post File   = "heat_cond.vtu"
+End
+
+
+Constants
+  Stefan Boltzmann = 0.0
+  Boltzmann Constant = 1.3807e-23
+End
+
+
+Body 1
+  Target Bodies(1) = 301
+  Name = "Conductor"
+  Equation = 1
+  Material = 1
+End
+
+
+Solver 1
+  Equation = "HeatEquations"
+  Procedure = "HeatSolve" "HeatSolver"
+  Variable  = "Temperature"
+  Exec Solver = "Always"
+  Stabilize = True
+  Steady State Convergence Tolerance = 1.0e-5
+  Nonlinear System Convergence Tolerance = 1.0e-3
+  Nonlinear System Max Iterations = 1
+End
+
+
+Equation 1
+  Name = "HeatEquation"
+  Active Solvers(1) = 1
+End
+
+
+Material 1
+  Name = "Conductor"
+  Density = 1000.0
+  Heat Conductivity = 1.0
+End
+
+
+Boundary Condition 1
+  Name = "left-side"
+  Target Boundaries(1) = 201
+  Temperature = 40.0
+End
+
+
+Boundary Condition 2
+  Name = "right-side"
+  Target Boundaries(1) = 202
+  Temperature = 20.0
+End
+
+
+Boundary Condition 3
+  Name = "other"
+  Target Boundaries(1) = 203
+End

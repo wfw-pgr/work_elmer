@@ -1,0 +1,12 @@
+*.msh
+*.bdf
+mesh.nodes
+mesh.elements
+mesh.names
+mesh.header
+mesh.boundary
+entities.sif
+*.vtu
+*.png
+*.vtk
+__pycache__

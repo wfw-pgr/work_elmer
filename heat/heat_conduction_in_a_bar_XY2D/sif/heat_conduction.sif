@@ -1,0 +1,101 @@
+! ========================================================= !
+! ===  heat_conduction.sif                              === !
+! ========================================================= !
+Header
+  CHECK KEYWORDS    Warn
+  Mesh DB           "." "msh/model"
+  Include Path      ""
+  Results Directory "out/"
+End
+
+
+Simulation
+  Max Output Level            = 5
+  Coordinate System           = "Cartesian"
+  Coordinate Mapping(3)       = 1 2 3
+
+  Simulation TYpe             = "Transient"
+  Steady State Max Iterations = 1
+  Output Intervals            = 1
+  Timestepping Method         = BDF
+  BDF Order                   = 1
+  TimeStep Intervals(1)       = 200
+  TimeStep Sizes(1)           = 10.0
+  Post File                   = output.vtu
+End
+
+
+Constants
+  Gravity(4)                  = 0 -1 0 9.82
+  Stefan Boltzmann            = 0.0
+  Boltzmann Constant          = 1.3807e-23
+End
+
+Solver 1
+  Equation                                 = "HeatEquations"
+  Procedure                                = "HeatSolve" "HeatSolver"
+  Variable                                 = "Temperature"
+  Exec Solver                              = "Always"
+  Stabilize                                = True
+  Bubbles                                  = False
+  Optimize Bandwidth                       = True
+  Steady State Convergence Tolerance       = 1.0e-5
+  Nonlinear System Convergence Tolerance   = 1.0e-3
+  Nonlinear System Max Iterations          = 1
+  Nonlinear System Newton After Iterations = 3
+  Nonlinear System Newton After Tolerance  = 1.0e-3
+  Nonlinear System Relaxation Factor       = 1
+  Linear System Solver                     = Iterative
+  Linear System Iterative Method           = BiCGStab
+  Linear System Max Iterations             = 500
+  Linear System Convergence Tolerance      = 1.0e-10
+  BiCGstabl polynomial degree              = 2
+  Linear System Preconditioning            = ILU0
+  Linear System ILUT Tolerance             = 1.0e-3
+  Linear System Abort Not Converged        = False
+  Linear System Residual Output            = 20
+  Linear System Precondition Recompute     = 1
+End
+
+
+Body 1
+  Target Bodies(1)      = 201
+  Name                  = "CupperPlate"
+  Equation              = 1
+  Material              = 1
+  Initial Condition     = 1
+End
+
+Equation 1
+  Name                  = "HeatEquation"
+  Active Solvers(1)     = 1
+  Heat Equation         = True
+End
+
+Material 1
+  Name                  = "Cupper"
+  Heat Conductivity     = 398.0    ! W/m.K
+  Heat Capacity         = 379.0    ! J/kg.K
+  Reference Temperature = 293.0    ! K
+  Density               = 8.96e+3  ! kg/m3 
+End
+
+
+Boundary Condition 1
+  Name                  = "bot"
+  Target Boundaries(1)  = 101
+  Temperature           = 500.0
+End
+
+
+Boundary Condition 2
+  Name                  = "top"
+  Target Boundaries(1)  = 102
+  Heat Flux BC          = True
+  Heat Flux             = 0.0
+End
+
+Initial Condition 1
+  Temperature           = 293.0
+End
+

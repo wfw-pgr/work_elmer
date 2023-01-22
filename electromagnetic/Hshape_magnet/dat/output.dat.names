@@ -1,0 +1,825 @@
+Elmer version: 8.4
+Elmer revision: 0131a585
+Elmer compilation date: 2020-02-29
+Solver input file: Hshape_magnet.sif
+File started at: 2020/06/09 10:45:52
+ 
+Variables in columns of matrix: dat/output.dat
+   1: value: av in element 15867
+   2: value: magnetic flux density 1 in element 15867
+   3: value: magnetic flux density 2 in element 15867
+   4: value: magnetic flux density 3 in element 15867
+   5: value: current density 1 in element 15867
+   6: value: current density 2 in element 15867
+   7: value: current density 3 in element 15867
+   8: value: magnetic flux density e 1 in element 15867
+   9: value: magnetic flux density e 2 in element 15867
+  10: value: magnetic flux density e 3 in element 15867
+  11: value: current density e 1 in element 15867
+  12: value: current density e 2 in element 15867
+  13: value: current density e 3 in element 15867
+  14: value: coordinate 1 in element 15867
+  15: value: coordinate 2 in element 15867
+  16: value: coordinate 3 in element 15867
+  17: value: av in element 14880
+  18: value: magnetic flux density 1 in element 14880
+  19: value: magnetic flux density 2 in element 14880
+  20: value: magnetic flux density 3 in element 14880
+  21: value: current density 1 in element 14880
+  22: value: current density 2 in element 14880
+  23: value: current density 3 in element 14880
+  24: value: magnetic flux density e 1 in element 14880
+  25: value: magnetic flux density e 2 in element 14880
+  26: value: magnetic flux density e 3 in element 14880
+  27: value: current density e 1 in element 14880
+  28: value: current density e 2 in element 14880
+  29: value: current density e 3 in element 14880
+  30: value: coordinate 1 in element 14880
+  31: value: coordinate 2 in element 14880
+  32: value: coordinate 3 in element 14880
+  33: value: av in element 14840
+  34: value: magnetic flux density 1 in element 14840
+  35: value: magnetic flux density 2 in element 14840
+  36: value: magnetic flux density 3 in element 14840
+  37: value: current density 1 in element 14840
+  38: value: current density 2 in element 14840
+  39: value: current density 3 in element 14840
+  40: value: magnetic flux density e 1 in element 14840
+  41: value: magnetic flux density e 2 in element 14840
+  42: value: magnetic flux density e 3 in element 14840
+  43: value: current density e 1 in element 14840
+  44: value: current density e 2 in element 14840
+  45: value: current density e 3 in element 14840
+  46: value: coordinate 1 in element 14840
+  47: value: coordinate 2 in element 14840
+  48: value: coordinate 3 in element 14840
+  49: value: av in element 13797
+  50: value: magnetic flux density 1 in element 13797
+  51: value: magnetic flux density 2 in element 13797
+  52: value: magnetic flux density 3 in element 13797
+  53: value: current density 1 in element 13797
+  54: value: current density 2 in element 13797
+  55: value: current density 3 in element 13797
+  56: value: magnetic flux density e 1 in element 13797
+  57: value: magnetic flux density e 2 in element 13797
+  58: value: magnetic flux density e 3 in element 13797
+  59: value: current density e 1 in element 13797
+  60: value: current density e 2 in element 13797
+  61: value: current density e 3 in element 13797
+  62: value: coordinate 1 in element 13797
+  63: value: coordinate 2 in element 13797
+  64: value: coordinate 3 in element 13797
+  65: value: av in element 15440
+  66: value: magnetic flux density 1 in element 15440
+  67: value: magnetic flux density 2 in element 15440
+  68: value: magnetic flux density 3 in element 15440
+  69: value: current density 1 in element 15440
+  70: value: current density 2 in element 15440
+  71: value: current density 3 in element 15440
+  72: value: magnetic flux density e 1 in element 15440
+  73: value: magnetic flux density e 2 in element 15440
+  74: value: magnetic flux density e 3 in element 15440
+  75: value: current density e 1 in element 15440
+  76: value: current density e 2 in element 15440
+  77: value: current density e 3 in element 15440
+  78: value: coordinate 1 in element 15440
+  79: value: coordinate 2 in element 15440
+  80: value: coordinate 3 in element 15440
+  81: value: av in element 16329
+  82: value: magnetic flux density 1 in element 16329
+  83: value: magnetic flux density 2 in element 16329
+  84: value: magnetic flux density 3 in element 16329
+  85: value: current density 1 in element 16329
+  86: value: current density 2 in element 16329
+  87: value: current density 3 in element 16329
+  88: value: magnetic flux density e 1 in element 16329
+  89: value: magnetic flux density e 2 in element 16329
+  90: value: magnetic flux density e 3 in element 16329
+  91: value: current density e 1 in element 16329
+  92: value: current density e 2 in element 16329
+  93: value: current density e 3 in element 16329
+  94: value: coordinate 1 in element 16329
+  95: value: coordinate 2 in element 16329
+  96: value: coordinate 3 in element 16329
+  97: value: av in element 15776
+  98: value: magnetic flux density 1 in element 15776
+  99: value: magnetic flux density 2 in element 15776
+ 100: value: magnetic flux density 3 in element 15776
+ 101: value: current density 1 in element 15776
+ 102: value: current density 2 in element 15776
+ 103: value: current density 3 in element 15776
+ 104: value: magnetic flux density e 1 in element 15776
+ 105: value: magnetic flux density e 2 in element 15776
+ 106: value: magnetic flux density e 3 in element 15776
+ 107: value: current density e 1 in element 15776
+ 108: value: current density e 2 in element 15776
+ 109: value: current density e 3 in element 15776
+ 110: value: coordinate 1 in element 15776
+ 111: value: coordinate 2 in element 15776
+ 112: value: coordinate 3 in element 15776
+ 113: value: av in element 14726
+ 114: value: magnetic flux density 1 in element 14726
+ 115: value: magnetic flux density 2 in element 14726
+ 116: value: magnetic flux density 3 in element 14726
+ 117: value: current density 1 in element 14726
+ 118: value: current density 2 in element 14726
+ 119: value: current density 3 in element 14726
+ 120: value: magnetic flux density e 1 in element 14726
+ 121: value: magnetic flux density e 2 in element 14726
+ 122: value: magnetic flux density e 3 in element 14726
+ 123: value: current density e 1 in element 14726
+ 124: value: current density e 2 in element 14726
+ 125: value: current density e 3 in element 14726
+ 126: value: coordinate 1 in element 14726
+ 127: value: coordinate 2 in element 14726
+ 128: value: coordinate 3 in element 14726
+ 129: value: av in element 14683
+ 130: value: magnetic flux density 1 in element 14683
+ 131: value: magnetic flux density 2 in element 14683
+ 132: value: magnetic flux density 3 in element 14683
+ 133: value: current density 1 in element 14683
+ 134: value: current density 2 in element 14683
+ 135: value: current density 3 in element 14683
+ 136: value: magnetic flux density e 1 in element 14683
+ 137: value: magnetic flux density e 2 in element 14683
+ 138: value: magnetic flux density e 3 in element 14683
+ 139: value: current density e 1 in element 14683
+ 140: value: current density e 2 in element 14683
+ 141: value: current density e 3 in element 14683
+ 142: value: coordinate 1 in element 14683
+ 143: value: coordinate 2 in element 14683
+ 144: value: coordinate 3 in element 14683
+ 145: value: av in element 14524
+ 146: value: magnetic flux density 1 in element 14524
+ 147: value: magnetic flux density 2 in element 14524
+ 148: value: magnetic flux density 3 in element 14524
+ 149: value: current density 1 in element 14524
+ 150: value: current density 2 in element 14524
+ 151: value: current density 3 in element 14524
+ 152: value: magnetic flux density e 1 in element 14524
+ 153: value: magnetic flux density e 2 in element 14524
+ 154: value: magnetic flux density e 3 in element 14524
+ 155: value: current density e 1 in element 14524
+ 156: value: current density e 2 in element 14524
+ 157: value: current density e 3 in element 14524
+ 158: value: coordinate 1 in element 14524
+ 159: value: coordinate 2 in element 14524
+ 160: value: coordinate 3 in element 14524
+ 161: value: av in element 14659
+ 162: value: magnetic flux density 1 in element 14659
+ 163: value: magnetic flux density 2 in element 14659
+ 164: value: magnetic flux density 3 in element 14659
+ 165: value: current density 1 in element 14659
+ 166: value: current density 2 in element 14659
+ 167: value: current density 3 in element 14659
+ 168: value: magnetic flux density e 1 in element 14659
+ 169: value: magnetic flux density e 2 in element 14659
+ 170: value: magnetic flux density e 3 in element 14659
+ 171: value: current density e 1 in element 14659
+ 172: value: current density e 2 in element 14659
+ 173: value: current density e 3 in element 14659
+ 174: value: coordinate 1 in element 14659
+ 175: value: coordinate 2 in element 14659
+ 176: value: coordinate 3 in element 14659
+ 177: value: av in element 14422
+ 178: value: magnetic flux density 1 in element 14422
+ 179: value: magnetic flux density 2 in element 14422
+ 180: value: magnetic flux density 3 in element 14422
+ 181: value: current density 1 in element 14422
+ 182: value: current density 2 in element 14422
+ 183: value: current density 3 in element 14422
+ 184: value: magnetic flux density e 1 in element 14422
+ 185: value: magnetic flux density e 2 in element 14422
+ 186: value: magnetic flux density e 3 in element 14422
+ 187: value: current density e 1 in element 14422
+ 188: value: current density e 2 in element 14422
+ 189: value: current density e 3 in element 14422
+ 190: value: coordinate 1 in element 14422
+ 191: value: coordinate 2 in element 14422
+ 192: value: coordinate 3 in element 14422
+ 193: value: av in element 14638
+ 194: value: magnetic flux density 1 in element 14638
+ 195: value: magnetic flux density 2 in element 14638
+ 196: value: magnetic flux density 3 in element 14638
+ 197: value: current density 1 in element 14638
+ 198: value: current density 2 in element 14638
+ 199: value: current density 3 in element 14638
+ 200: value: magnetic flux density e 1 in element 14638
+ 201: value: magnetic flux density e 2 in element 14638
+ 202: value: magnetic flux density e 3 in element 14638
+ 203: value: current density e 1 in element 14638
+ 204: value: current density e 2 in element 14638
+ 205: value: current density e 3 in element 14638
+ 206: value: coordinate 1 in element 14638
+ 207: value: coordinate 2 in element 14638
+ 208: value: coordinate 3 in element 14638
+ 209: value: av in element 14624
+ 210: value: magnetic flux density 1 in element 14624
+ 211: value: magnetic flux density 2 in element 14624
+ 212: value: magnetic flux density 3 in element 14624
+ 213: value: current density 1 in element 14624
+ 214: value: current density 2 in element 14624
+ 215: value: current density 3 in element 14624
+ 216: value: magnetic flux density e 1 in element 14624
+ 217: value: magnetic flux density e 2 in element 14624
+ 218: value: magnetic flux density e 3 in element 14624
+ 219: value: current density e 1 in element 14624
+ 220: value: current density e 2 in element 14624
+ 221: value: current density e 3 in element 14624
+ 222: value: coordinate 1 in element 14624
+ 223: value: coordinate 2 in element 14624
+ 224: value: coordinate 3 in element 14624
+ 225: value: av in element 14635
+ 226: value: magnetic flux density 1 in element 14635
+ 227: value: magnetic flux density 2 in element 14635
+ 228: value: magnetic flux density 3 in element 14635
+ 229: value: current density 1 in element 14635
+ 230: value: current density 2 in element 14635
+ 231: value: current density 3 in element 14635
+ 232: value: magnetic flux density e 1 in element 14635
+ 233: value: magnetic flux density e 2 in element 14635
+ 234: value: magnetic flux density e 3 in element 14635
+ 235: value: current density e 1 in element 14635
+ 236: value: current density e 2 in element 14635
+ 237: value: current density e 3 in element 14635
+ 238: value: coordinate 1 in element 14635
+ 239: value: coordinate 2 in element 14635
+ 240: value: coordinate 3 in element 14635
+ 241: value: av in element 14828
+ 242: value: magnetic flux density 1 in element 14828
+ 243: value: magnetic flux density 2 in element 14828
+ 244: value: magnetic flux density 3 in element 14828
+ 245: value: current density 1 in element 14828
+ 246: value: current density 2 in element 14828
+ 247: value: current density 3 in element 14828
+ 248: value: magnetic flux density e 1 in element 14828
+ 249: value: magnetic flux density e 2 in element 14828
+ 250: value: magnetic flux density e 3 in element 14828
+ 251: value: current density e 1 in element 14828
+ 252: value: current density e 2 in element 14828
+ 253: value: current density e 3 in element 14828
+ 254: value: coordinate 1 in element 14828
+ 255: value: coordinate 2 in element 14828
+ 256: value: coordinate 3 in element 14828
+ 257: value: av in element 14565
+ 258: value: magnetic flux density 1 in element 14565
+ 259: value: magnetic flux density 2 in element 14565
+ 260: value: magnetic flux density 3 in element 14565
+ 261: value: current density 1 in element 14565
+ 262: value: current density 2 in element 14565
+ 263: value: current density 3 in element 14565
+ 264: value: magnetic flux density e 1 in element 14565
+ 265: value: magnetic flux density e 2 in element 14565
+ 266: value: magnetic flux density e 3 in element 14565
+ 267: value: current density e 1 in element 14565
+ 268: value: current density e 2 in element 14565
+ 269: value: current density e 3 in element 14565
+ 270: value: coordinate 1 in element 14565
+ 271: value: coordinate 2 in element 14565
+ 272: value: coordinate 3 in element 14565
+ 273: value: av in element 15788
+ 274: value: magnetic flux density 1 in element 15788
+ 275: value: magnetic flux density 2 in element 15788
+ 276: value: magnetic flux density 3 in element 15788
+ 277: value: current density 1 in element 15788
+ 278: value: current density 2 in element 15788
+ 279: value: current density 3 in element 15788
+ 280: value: magnetic flux density e 1 in element 15788
+ 281: value: magnetic flux density e 2 in element 15788
+ 282: value: magnetic flux density e 3 in element 15788
+ 283: value: current density e 1 in element 15788
+ 284: value: current density e 2 in element 15788
+ 285: value: current density e 3 in element 15788
+ 286: value: coordinate 1 in element 15788
+ 287: value: coordinate 2 in element 15788
+ 288: value: coordinate 3 in element 15788
+ 289: value: av in element 15719
+ 290: value: magnetic flux density 1 in element 15719
+ 291: value: magnetic flux density 2 in element 15719
+ 292: value: magnetic flux density 3 in element 15719
+ 293: value: current density 1 in element 15719
+ 294: value: current density 2 in element 15719
+ 295: value: current density 3 in element 15719
+ 296: value: magnetic flux density e 1 in element 15719
+ 297: value: magnetic flux density e 2 in element 15719
+ 298: value: magnetic flux density e 3 in element 15719
+ 299: value: current density e 1 in element 15719
+ 300: value: current density e 2 in element 15719
+ 301: value: current density e 3 in element 15719
+ 302: value: coordinate 1 in element 15719
+ 303: value: coordinate 2 in element 15719
+ 304: value: coordinate 3 in element 15719
+ 305: value: av in element 14544
+ 306: value: magnetic flux density 1 in element 14544
+ 307: value: magnetic flux density 2 in element 14544
+ 308: value: magnetic flux density 3 in element 14544
+ 309: value: current density 1 in element 14544
+ 310: value: current density 2 in element 14544
+ 311: value: current density 3 in element 14544
+ 312: value: magnetic flux density e 1 in element 14544
+ 313: value: magnetic flux density e 2 in element 14544
+ 314: value: magnetic flux density e 3 in element 14544
+ 315: value: current density e 1 in element 14544
+ 316: value: current density e 2 in element 14544
+ 317: value: current density e 3 in element 14544
+ 318: value: coordinate 1 in element 14544
+ 319: value: coordinate 2 in element 14544
+ 320: value: coordinate 3 in element 14544
+ 321: value: av in element 13874
+ 322: value: magnetic flux density 1 in element 13874
+ 323: value: magnetic flux density 2 in element 13874
+ 324: value: magnetic flux density 3 in element 13874
+ 325: value: current density 1 in element 13874
+ 326: value: current density 2 in element 13874
+ 327: value: current density 3 in element 13874
+ 328: value: magnetic flux density e 1 in element 13874
+ 329: value: magnetic flux density e 2 in element 13874
+ 330: value: magnetic flux density e 3 in element 13874
+ 331: value: current density e 1 in element 13874
+ 332: value: current density e 2 in element 13874
+ 333: value: current density e 3 in element 13874
+ 334: value: coordinate 1 in element 13874
+ 335: value: coordinate 2 in element 13874
+ 336: value: coordinate 3 in element 13874
+ 337: value: av in element 14113
+ 338: value: magnetic flux density 1 in element 14113
+ 339: value: magnetic flux density 2 in element 14113
+ 340: value: magnetic flux density 3 in element 14113
+ 341: value: current density 1 in element 14113
+ 342: value: current density 2 in element 14113
+ 343: value: current density 3 in element 14113
+ 344: value: magnetic flux density e 1 in element 14113
+ 345: value: magnetic flux density e 2 in element 14113
+ 346: value: magnetic flux density e 3 in element 14113
+ 347: value: current density e 1 in element 14113
+ 348: value: current density e 2 in element 14113
+ 349: value: current density e 3 in element 14113
+ 350: value: coordinate 1 in element 14113
+ 351: value: coordinate 2 in element 14113
+ 352: value: coordinate 3 in element 14113
+ 353: value: av in element 14113
+ 354: value: magnetic flux density 1 in element 14113
+ 355: value: magnetic flux density 2 in element 14113
+ 356: value: magnetic flux density 3 in element 14113
+ 357: value: current density 1 in element 14113
+ 358: value: current density 2 in element 14113
+ 359: value: current density 3 in element 14113
+ 360: value: magnetic flux density e 1 in element 14113
+ 361: value: magnetic flux density e 2 in element 14113
+ 362: value: magnetic flux density e 3 in element 14113
+ 363: value: current density e 1 in element 14113
+ 364: value: current density e 2 in element 14113
+ 365: value: current density e 3 in element 14113
+ 366: value: coordinate 1 in element 14113
+ 367: value: coordinate 2 in element 14113
+ 368: value: coordinate 3 in element 14113
+ 369: value: av in element 14472
+ 370: value: magnetic flux density 1 in element 14472
+ 371: value: magnetic flux density 2 in element 14472
+ 372: value: magnetic flux density 3 in element 14472
+ 373: value: current density 1 in element 14472
+ 374: value: current density 2 in element 14472
+ 375: value: current density 3 in element 14472
+ 376: value: magnetic flux density e 1 in element 14472
+ 377: value: magnetic flux density e 2 in element 14472
+ 378: value: magnetic flux density e 3 in element 14472
+ 379: value: current density e 1 in element 14472
+ 380: value: current density e 2 in element 14472
+ 381: value: current density e 3 in element 14472
+ 382: value: coordinate 1 in element 14472
+ 383: value: coordinate 2 in element 14472
+ 384: value: coordinate 3 in element 14472
+ 385: value: av in element 14153
+ 386: value: magnetic flux density 1 in element 14153
+ 387: value: magnetic flux density 2 in element 14153
+ 388: value: magnetic flux density 3 in element 14153
+ 389: value: current density 1 in element 14153
+ 390: value: current density 2 in element 14153
+ 391: value: current density 3 in element 14153
+ 392: value: magnetic flux density e 1 in element 14153
+ 393: value: magnetic flux density e 2 in element 14153
+ 394: value: magnetic flux density e 3 in element 14153
+ 395: value: current density e 1 in element 14153
+ 396: value: current density e 2 in element 14153
+ 397: value: current density e 3 in element 14153
+ 398: value: coordinate 1 in element 14153
+ 399: value: coordinate 2 in element 14153
+ 400: value: coordinate 3 in element 14153
+ 401: value: av in element 14423
+ 402: value: magnetic flux density 1 in element 14423
+ 403: value: magnetic flux density 2 in element 14423
+ 404: value: magnetic flux density 3 in element 14423
+ 405: value: current density 1 in element 14423
+ 406: value: current density 2 in element 14423
+ 407: value: current density 3 in element 14423
+ 408: value: magnetic flux density e 1 in element 14423
+ 409: value: magnetic flux density e 2 in element 14423
+ 410: value: magnetic flux density e 3 in element 14423
+ 411: value: current density e 1 in element 14423
+ 412: value: current density e 2 in element 14423
+ 413: value: current density e 3 in element 14423
+ 414: value: coordinate 1 in element 14423
+ 415: value: coordinate 2 in element 14423
+ 416: value: coordinate 3 in element 14423
+ 417: value: av in element 14413
+ 418: value: magnetic flux density 1 in element 14413
+ 419: value: magnetic flux density 2 in element 14413
+ 420: value: magnetic flux density 3 in element 14413
+ 421: value: current density 1 in element 14413
+ 422: value: current density 2 in element 14413
+ 423: value: current density 3 in element 14413
+ 424: value: magnetic flux density e 1 in element 14413
+ 425: value: magnetic flux density e 2 in element 14413
+ 426: value: magnetic flux density e 3 in element 14413
+ 427: value: current density e 1 in element 14413
+ 428: value: current density e 2 in element 14413
+ 429: value: current density e 3 in element 14413
+ 430: value: coordinate 1 in element 14413
+ 431: value: coordinate 2 in element 14413
+ 432: value: coordinate 3 in element 14413
+ 433: value: av in element 14374
+ 434: value: magnetic flux density 1 in element 14374
+ 435: value: magnetic flux density 2 in element 14374
+ 436: value: magnetic flux density 3 in element 14374
+ 437: value: current density 1 in element 14374
+ 438: value: current density 2 in element 14374
+ 439: value: current density 3 in element 14374
+ 440: value: magnetic flux density e 1 in element 14374
+ 441: value: magnetic flux density e 2 in element 14374
+ 442: value: magnetic flux density e 3 in element 14374
+ 443: value: current density e 1 in element 14374
+ 444: value: current density e 2 in element 14374
+ 445: value: current density e 3 in element 14374
+ 446: value: coordinate 1 in element 14374
+ 447: value: coordinate 2 in element 14374
+ 448: value: coordinate 3 in element 14374
+ 449: value: av in element 14374
+ 450: value: magnetic flux density 1 in element 14374
+ 451: value: magnetic flux density 2 in element 14374
+ 452: value: magnetic flux density 3 in element 14374
+ 453: value: current density 1 in element 14374
+ 454: value: current density 2 in element 14374
+ 455: value: current density 3 in element 14374
+ 456: value: magnetic flux density e 1 in element 14374
+ 457: value: magnetic flux density e 2 in element 14374
+ 458: value: magnetic flux density e 3 in element 14374
+ 459: value: current density e 1 in element 14374
+ 460: value: current density e 2 in element 14374
+ 461: value: current density e 3 in element 14374
+ 462: value: coordinate 1 in element 14374
+ 463: value: coordinate 2 in element 14374
+ 464: value: coordinate 3 in element 14374
+ 465: value: av in element 14362
+ 466: value: magnetic flux density 1 in element 14362
+ 467: value: magnetic flux density 2 in element 14362
+ 468: value: magnetic flux density 3 in element 14362
+ 469: value: current density 1 in element 14362
+ 470: value: current density 2 in element 14362
+ 471: value: current density 3 in element 14362
+ 472: value: magnetic flux density e 1 in element 14362
+ 473: value: magnetic flux density e 2 in element 14362
+ 474: value: magnetic flux density e 3 in element 14362
+ 475: value: current density e 1 in element 14362
+ 476: value: current density e 2 in element 14362
+ 477: value: current density e 3 in element 14362
+ 478: value: coordinate 1 in element 14362
+ 479: value: coordinate 2 in element 14362
+ 480: value: coordinate 3 in element 14362
+ 481: value: av in element 14507
+ 482: value: magnetic flux density 1 in element 14507
+ 483: value: magnetic flux density 2 in element 14507
+ 484: value: magnetic flux density 3 in element 14507
+ 485: value: current density 1 in element 14507
+ 486: value: current density 2 in element 14507
+ 487: value: current density 3 in element 14507
+ 488: value: magnetic flux density e 1 in element 14507
+ 489: value: magnetic flux density e 2 in element 14507
+ 490: value: magnetic flux density e 3 in element 14507
+ 491: value: current density e 1 in element 14507
+ 492: value: current density e 2 in element 14507
+ 493: value: current density e 3 in element 14507
+ 494: value: coordinate 1 in element 14507
+ 495: value: coordinate 2 in element 14507
+ 496: value: coordinate 3 in element 14507
+ 497: value: av in element 14314
+ 498: value: magnetic flux density 1 in element 14314
+ 499: value: magnetic flux density 2 in element 14314
+ 500: value: magnetic flux density 3 in element 14314
+ 501: value: current density 1 in element 14314
+ 502: value: current density 2 in element 14314
+ 503: value: current density 3 in element 14314
+ 504: value: magnetic flux density e 1 in element 14314
+ 505: value: magnetic flux density e 2 in element 14314
+ 506: value: magnetic flux density e 3 in element 14314
+ 507: value: current density e 1 in element 14314
+ 508: value: current density e 2 in element 14314
+ 509: value: current density e 3 in element 14314
+ 510: value: coordinate 1 in element 14314
+ 511: value: coordinate 2 in element 14314
+ 512: value: coordinate 3 in element 14314
+ 513: value: av in element 14314
+ 514: value: magnetic flux density 1 in element 14314
+ 515: value: magnetic flux density 2 in element 14314
+ 516: value: magnetic flux density 3 in element 14314
+ 517: value: current density 1 in element 14314
+ 518: value: current density 2 in element 14314
+ 519: value: current density 3 in element 14314
+ 520: value: magnetic flux density e 1 in element 14314
+ 521: value: magnetic flux density e 2 in element 14314
+ 522: value: magnetic flux density e 3 in element 14314
+ 523: value: current density e 1 in element 14314
+ 524: value: current density e 2 in element 14314
+ 525: value: current density e 3 in element 14314
+ 526: value: coordinate 1 in element 14314
+ 527: value: coordinate 2 in element 14314
+ 528: value: coordinate 3 in element 14314
+ 529: value: av in element 14309
+ 530: value: magnetic flux density 1 in element 14309
+ 531: value: magnetic flux density 2 in element 14309
+ 532: value: magnetic flux density 3 in element 14309
+ 533: value: current density 1 in element 14309
+ 534: value: current density 2 in element 14309
+ 535: value: current density 3 in element 14309
+ 536: value: magnetic flux density e 1 in element 14309
+ 537: value: magnetic flux density e 2 in element 14309
+ 538: value: magnetic flux density e 3 in element 14309
+ 539: value: current density e 1 in element 14309
+ 540: value: current density e 2 in element 14309
+ 541: value: current density e 3 in element 14309
+ 542: value: coordinate 1 in element 14309
+ 543: value: coordinate 2 in element 14309
+ 544: value: coordinate 3 in element 14309
+ 545: value: av in element 14231
+ 546: value: magnetic flux density 1 in element 14231
+ 547: value: magnetic flux density 2 in element 14231
+ 548: value: magnetic flux density 3 in element 14231
+ 549: value: current density 1 in element 14231
+ 550: value: current density 2 in element 14231
+ 551: value: current density 3 in element 14231
+ 552: value: magnetic flux density e 1 in element 14231
+ 553: value: magnetic flux density e 2 in element 14231
+ 554: value: magnetic flux density e 3 in element 14231
+ 555: value: current density e 1 in element 14231
+ 556: value: current density e 2 in element 14231
+ 557: value: current density e 3 in element 14231
+ 558: value: coordinate 1 in element 14231
+ 559: value: coordinate 2 in element 14231
+ 560: value: coordinate 3 in element 14231
+ 561: value: av in element 14249
+ 562: value: magnetic flux density 1 in element 14249
+ 563: value: magnetic flux density 2 in element 14249
+ 564: value: magnetic flux density 3 in element 14249
+ 565: value: current density 1 in element 14249
+ 566: value: current density 2 in element 14249
+ 567: value: current density 3 in element 14249
+ 568: value: magnetic flux density e 1 in element 14249
+ 569: value: magnetic flux density e 2 in element 14249
+ 570: value: magnetic flux density e 3 in element 14249
+ 571: value: current density e 1 in element 14249
+ 572: value: current density e 2 in element 14249
+ 573: value: current density e 3 in element 14249
+ 574: value: coordinate 1 in element 14249
+ 575: value: coordinate 2 in element 14249
+ 576: value: coordinate 3 in element 14249
+ 577: value: av in element 14249
+ 578: value: magnetic flux density 1 in element 14249
+ 579: value: magnetic flux density 2 in element 14249
+ 580: value: magnetic flux density 3 in element 14249
+ 581: value: current density 1 in element 14249
+ 582: value: current density 2 in element 14249
+ 583: value: current density 3 in element 14249
+ 584: value: magnetic flux density e 1 in element 14249
+ 585: value: magnetic flux density e 2 in element 14249
+ 586: value: magnetic flux density e 3 in element 14249
+ 587: value: current density e 1 in element 14249
+ 588: value: current density e 2 in element 14249
+ 589: value: current density e 3 in element 14249
+ 590: value: coordinate 1 in element 14249
+ 591: value: coordinate 2 in element 14249
+ 592: value: coordinate 3 in element 14249
+ 593: value: av in element 14133
+ 594: value: magnetic flux density 1 in element 14133
+ 595: value: magnetic flux density 2 in element 14133
+ 596: value: magnetic flux density 3 in element 14133
+ 597: value: current density 1 in element 14133
+ 598: value: current density 2 in element 14133
+ 599: value: current density 3 in element 14133
+ 600: value: magnetic flux density e 1 in element 14133
+ 601: value: magnetic flux density e 2 in element 14133
+ 602: value: magnetic flux density e 3 in element 14133
+ 603: value: current density e 1 in element 14133
+ 604: value: current density e 2 in element 14133
+ 605: value: current density e 3 in element 14133
+ 606: value: coordinate 1 in element 14133
+ 607: value: coordinate 2 in element 14133
+ 608: value: coordinate 3 in element 14133
+ 609: value: av in element 14174
+ 610: value: magnetic flux density 1 in element 14174
+ 611: value: magnetic flux density 2 in element 14174
+ 612: value: magnetic flux density 3 in element 14174
+ 613: value: current density 1 in element 14174
+ 614: value: current density 2 in element 14174
+ 615: value: current density 3 in element 14174
+ 616: value: magnetic flux density e 1 in element 14174
+ 617: value: magnetic flux density e 2 in element 14174
+ 618: value: magnetic flux density e 3 in element 14174
+ 619: value: current density e 1 in element 14174
+ 620: value: current density e 2 in element 14174
+ 621: value: current density e 3 in element 14174
+ 622: value: coordinate 1 in element 14174
+ 623: value: coordinate 2 in element 14174
+ 624: value: coordinate 3 in element 14174
+ 625: value: av in element 14174
+ 626: value: magnetic flux density 1 in element 14174
+ 627: value: magnetic flux density 2 in element 14174
+ 628: value: magnetic flux density 3 in element 14174
+ 629: value: current density 1 in element 14174
+ 630: value: current density 2 in element 14174
+ 631: value: current density 3 in element 14174
+ 632: value: magnetic flux density e 1 in element 14174
+ 633: value: magnetic flux density e 2 in element 14174
+ 634: value: magnetic flux density e 3 in element 14174
+ 635: value: current density e 1 in element 14174
+ 636: value: current density e 2 in element 14174
+ 637: value: current density e 3 in element 14174
+ 638: value: coordinate 1 in element 14174
+ 639: value: coordinate 2 in element 14174
+ 640: value: coordinate 3 in element 14174
+ 641: value: av in element 14079
+ 642: value: magnetic flux density 1 in element 14079
+ 643: value: magnetic flux density 2 in element 14079
+ 644: value: magnetic flux density 3 in element 14079
+ 645: value: current density 1 in element 14079
+ 646: value: current density 2 in element 14079
+ 647: value: current density 3 in element 14079
+ 648: value: magnetic flux density e 1 in element 14079
+ 649: value: magnetic flux density e 2 in element 14079
+ 650: value: magnetic flux density e 3 in element 14079
+ 651: value: current density e 1 in element 14079
+ 652: value: current density e 2 in element 14079
+ 653: value: current density e 3 in element 14079
+ 654: value: coordinate 1 in element 14079
+ 655: value: coordinate 2 in element 14079
+ 656: value: coordinate 3 in element 14079
+ 657: value: av in element 14096
+ 658: value: magnetic flux density 1 in element 14096
+ 659: value: magnetic flux density 2 in element 14096
+ 660: value: magnetic flux density 3 in element 14096
+ 661: value: current density 1 in element 14096
+ 662: value: current density 2 in element 14096
+ 663: value: current density 3 in element 14096
+ 664: value: magnetic flux density e 1 in element 14096
+ 665: value: magnetic flux density e 2 in element 14096
+ 666: value: magnetic flux density e 3 in element 14096
+ 667: value: current density e 1 in element 14096
+ 668: value: current density e 2 in element 14096
+ 669: value: current density e 3 in element 14096
+ 670: value: coordinate 1 in element 14096
+ 671: value: coordinate 2 in element 14096
+ 672: value: coordinate 3 in element 14096
+ 673: value: av in element 14096
+ 674: value: magnetic flux density 1 in element 14096
+ 675: value: magnetic flux density 2 in element 14096
+ 676: value: magnetic flux density 3 in element 14096
+ 677: value: current density 1 in element 14096
+ 678: value: current density 2 in element 14096
+ 679: value: current density 3 in element 14096
+ 680: value: magnetic flux density e 1 in element 14096
+ 681: value: magnetic flux density e 2 in element 14096
+ 682: value: magnetic flux density e 3 in element 14096
+ 683: value: current density e 1 in element 14096
+ 684: value: current density e 2 in element 14096
+ 685: value: current density e 3 in element 14096
+ 686: value: coordinate 1 in element 14096
+ 687: value: coordinate 2 in element 14096
+ 688: value: coordinate 3 in element 14096
+ 689: value: av in element 16158
+ 690: value: magnetic flux density 1 in element 16158
+ 691: value: magnetic flux density 2 in element 16158
+ 692: value: magnetic flux density 3 in element 16158
+ 693: value: current density 1 in element 16158
+ 694: value: current density 2 in element 16158
+ 695: value: current density 3 in element 16158
+ 696: value: magnetic flux density e 1 in element 16158
+ 697: value: magnetic flux density e 2 in element 16158
+ 698: value: magnetic flux density e 3 in element 16158
+ 699: value: current density e 1 in element 16158
+ 700: value: current density e 2 in element 16158
+ 701: value: current density e 3 in element 16158
+ 702: value: coordinate 1 in element 16158
+ 703: value: coordinate 2 in element 16158
+ 704: value: coordinate 3 in element 16158
+ 705: value: av in element 14197
+ 706: value: magnetic flux density 1 in element 14197
+ 707: value: magnetic flux density 2 in element 14197
+ 708: value: magnetic flux density 3 in element 14197
+ 709: value: current density 1 in element 14197
+ 710: value: current density 2 in element 14197
+ 711: value: current density 3 in element 14197
+ 712: value: magnetic flux density e 1 in element 14197
+ 713: value: magnetic flux density e 2 in element 14197
+ 714: value: magnetic flux density e 3 in element 14197
+ 715: value: current density e 1 in element 14197
+ 716: value: current density e 2 in element 14197
+ 717: value: current density e 3 in element 14197
+ 718: value: coordinate 1 in element 14197
+ 719: value: coordinate 2 in element 14197
+ 720: value: coordinate 3 in element 14197
+ 721: value: av in element 14197
+ 722: value: magnetic flux density 1 in element 14197
+ 723: value: magnetic flux density 2 in element 14197
+ 724: value: magnetic flux density 3 in element 14197
+ 725: value: current density 1 in element 14197
+ 726: value: current density 2 in element 14197
+ 727: value: current density 3 in element 14197
+ 728: value: magnetic flux density e 1 in element 14197
+ 729: value: magnetic flux density e 2 in element 14197
+ 730: value: magnetic flux density e 3 in element 14197
+ 731: value: current density e 1 in element 14197
+ 732: value: current density e 2 in element 14197
+ 733: value: current density e 3 in element 14197
+ 734: value: coordinate 1 in element 14197
+ 735: value: coordinate 2 in element 14197
+ 736: value: coordinate 3 in element 14197
+ 737: value: av in element 14668
+ 738: value: magnetic flux density 1 in element 14668
+ 739: value: magnetic flux density 2 in element 14668
+ 740: value: magnetic flux density 3 in element 14668
+ 741: value: current density 1 in element 14668
+ 742: value: current density 2 in element 14668
+ 743: value: current density 3 in element 14668
+ 744: value: magnetic flux density e 1 in element 14668
+ 745: value: magnetic flux density e 2 in element 14668
+ 746: value: magnetic flux density e 3 in element 14668
+ 747: value: current density e 1 in element 14668
+ 748: value: current density e 2 in element 14668
+ 749: value: current density e 3 in element 14668
+ 750: value: coordinate 1 in element 14668
+ 751: value: coordinate 2 in element 14668
+ 752: value: coordinate 3 in element 14668
+ 753: value: av in element 14668
+ 754: value: magnetic flux density 1 in element 14668
+ 755: value: magnetic flux density 2 in element 14668
+ 756: value: magnetic flux density 3 in element 14668
+ 757: value: current density 1 in element 14668
+ 758: value: current density 2 in element 14668
+ 759: value: current density 3 in element 14668
+ 760: value: magnetic flux density e 1 in element 14668
+ 761: value: magnetic flux density e 2 in element 14668
+ 762: value: magnetic flux density e 3 in element 14668
+ 763: value: current density e 1 in element 14668
+ 764: value: current density e 2 in element 14668
+ 765: value: current density e 3 in element 14668
+ 766: value: coordinate 1 in element 14668
+ 767: value: coordinate 2 in element 14668
+ 768: value: coordinate 3 in element 14668
+ 769: value: av in element 14361
+ 770: value: magnetic flux density 1 in element 14361
+ 771: value: magnetic flux density 2 in element 14361
+ 772: value: magnetic flux density 3 in element 14361
+ 773: value: current density 1 in element 14361
+ 774: value: current density 2 in element 14361
+ 775: value: current density 3 in element 14361
+ 776: value: magnetic flux density e 1 in element 14361
+ 777: value: magnetic flux density e 2 in element 14361
+ 778: value: magnetic flux density e 3 in element 14361
+ 779: value: current density e 1 in element 14361
+ 780: value: current density e 2 in element 14361
+ 781: value: current density e 3 in element 14361
+ 782: value: coordinate 1 in element 14361
+ 783: value: coordinate 2 in element 14361
+ 784: value: coordinate 3 in element 14361
+ 785: value: av in element 14415
+ 786: value: magnetic flux density 1 in element 14415
+ 787: value: magnetic flux density 2 in element 14415
+ 788: value: magnetic flux density 3 in element 14415
+ 789: value: current density 1 in element 14415
+ 790: value: current density 2 in element 14415
+ 791: value: current density 3 in element 14415
+ 792: value: magnetic flux density e 1 in element 14415
+ 793: value: magnetic flux density e 2 in element 14415
+ 794: value: magnetic flux density e 3 in element 14415
+ 795: value: current density e 1 in element 14415
+ 796: value: current density e 2 in element 14415
+ 797: value: current density e 3 in element 14415
+ 798: value: coordinate 1 in element 14415
+ 799: value: coordinate 2 in element 14415
+ 800: value: coordinate 3 in element 14415
+ 801: value: av in element 14415
+ 802: value: magnetic flux density 1 in element 14415
+ 803: value: magnetic flux density 2 in element 14415
+ 804: value: magnetic flux density 3 in element 14415
+ 805: value: current density 1 in element 14415
+ 806: value: current density 2 in element 14415
+ 807: value: current density 3 in element 14415
+ 808: value: magnetic flux density e 1 in element 14415
+ 809: value: magnetic flux density e 2 in element 14415
+ 810: value: magnetic flux density e 3 in element 14415
+ 811: value: current density e 1 in element 14415
+ 812: value: current density e 2 in element 14415
+ 813: value: current density e 3 in element 14415
+ 814: value: coordinate 1 in element 14415
+ 815: value: coordinate 2 in element 14415
+ 816: value: coordinate 3 in element 14415
+ 817: res: eddy current power
+ 818: res: magnetic field energy

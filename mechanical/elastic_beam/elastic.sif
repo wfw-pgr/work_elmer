@@ -1,0 +1,92 @@
+Header
+  CHECK KEYWORDS Warn
+  Mesh DB "." "model"
+  Include Path ""
+  Results Directory ""
+End
+
+Simulation
+  Coordinate System = "Cartesian 3D"
+  Coordinate Mapping(3) = 1 2 3
+
+  Simulation Type = "Steady State"
+  Steady State Max Iterations = 20
+
+  Solver Input File = "elastic.sif"
+  Output File = "Beam.dat"
+  Post File = "Beam.vtu"
+
+End
+
+
+Constants
+  Gravity(4) = 0 -1 0 9.82
+End
+
+
+Body 1
+  Target Bodies(1) = 301
+  Name = "Body1"
+
+  Equation = 1
+  Material = 1
+End
+
+
+Solver 1
+  Exec Solver   = "Always"
+  Equation      = "Stress Analysis"
+  Variable      = "Displacement"
+  Variable Dofs = 3
+  Linear System Solver = "Iterative"
+  Linear System Iterative Method = "BiCGStab"
+  Linear System Max Iterations = 10000
+  Linear System Convergence Tolerance = 1.0e-3
+  Linear System Preconditioning = "ILU0"
+  Steady State Convergence Tolerance = 1.0e-5
+  Nonlinear System Convergence Tolerance = 1.0e-3
+  Nonlinear System Max Iterations = 1
+End
+
+
+Equation 1
+  Name = "StressAnalysis"
+  Stress Analysis   = True
+  Calculate Stresses = Logical False
+End
+
+
+Material 1
+  Name           = "Material1"
+  Youngs Modulus = 200.0e9
+  Poisson Ratio  = 0.3
+End
+
+
+Boundary Condition 1
+  Name = "Constraint1"
+  Target Boundaries(1) = 201
+
+  Displacement 1 = 0
+  Displacement 2 = 0
+  Displacement 3 = 0
+End
+
+
+Boundary Condition 2
+  Name = "Constraint2"
+  Target Boundaries(1) = 202
+
+  Force 3 = Variable Coordinate 3
+  Real
+     1 0
+     2 0
+     3 -1.000e+6
+  End
+End
+
+
+Boundary Condition 3
+  Name = "other"
+  Target Boundaries(1) = 203
+End

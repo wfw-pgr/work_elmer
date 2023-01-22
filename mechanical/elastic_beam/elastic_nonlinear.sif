@@ -1,0 +1,90 @@
+
+CHECK KEYWORDS "Warn"
+
+Header
+  Mesh DB "." "model"
+  Include Path ""
+  Results Directory ""
+End
+
+Simulation
+  coordinate system = "Cartesian 3D"
+  Coordinate Mapping(3) = 1 2 3
+
+  Simulation Type = "Steady State"
+  Steady State Max Iterations = 20
+  
+  Solver Input File = "elastic_nonlinear.sif"
+  Output File = "elastic_nonlinear.dat"
+  Post File = "elastic_nonlinear.vtu"
+End
+
+
+Constants
+  Gravity(4) = 0 0 -1 9.82
+End
+
+
+Body 1
+  Target Bodies(1) = 301
+  Name = "Body1"
+
+  Equation = 1
+  Material = 1
+End
+
+
+Equation 1
+  Name = "ElasticSolver"
+  Active Solvers(1) = 1
+End
+
+
+Solver 1
+  Exec Solver   = "Always"
+  Equation      = "ElasticSolver"
+  Variable      = "Displacement"
+  Variable Dofs = 3
+  Procedure     = "ElasticSolve" "ElasticSolver"
+  Linear System Solver = "Iterative"
+  Linear System Iterative Method = "BiCGStab"
+  Linear System Max Iterations = 100000
+  Linear System Convergence Tolerance = 1.0e-6
+  Linear System Preconditioning = "ILU0"
+  Steady State Convergence Tolerance = 1.0e-6
+  Nonlinear System Convergence Tolerance = 1.0e-8
+  Nonlinear System Max Iterations = 10
+  Nonlinear System Newton After Iterations = 3
+  Nonlinear System Newton After Tolerance = 1.0e-08
+  Nonlinear System Relaxation Factor = 0.5
+
+  Calculate Strains  = Logical True
+  Calculate Stresses = Logical True
+  Calculate Loads    = Logical True
+  
+End
+
+
+Material 1
+  Name           = "Iron"
+  Youngs Modulus = 200.0e9
+  Poisson Ratio  = 0.3
+End
+
+
+Boundary Condition 1
+  Name = "Constraint1"
+  Target Boundaries(1) = 202
+
+  Displacement 1 = 0
+  Displacement 2 = 0
+  Displacement 3 = 0
+End
+
+
+Boundary Condition 2
+  Name = "Constraint2"
+  Target Boundaries(1) = 201
+
+  Force 3 = -1.0e6
+End
