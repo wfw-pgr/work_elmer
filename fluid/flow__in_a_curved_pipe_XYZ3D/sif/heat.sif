@@ -1,0 +1,135 @@
+
+include "./msh/model/mesh.names"
+
+Header
+  CHECK KEYWORDS    Warn
+  Mesh DB           "." "msh/model"
+  Include Path      ""
+  Results Directory "out/"
+End
+
+
+Simulation
+  Max Output Level                         = 3
+  Coordinate System                        = string "Cartesian"
+  Coordinate Mapping(3)                    = 1 2 3
+
+  Simulation Type                          = "Transient"
+  TimeStepping Method                      = BDF
+  BDF Order                                = 2
+  Timestep sizes(1)                        = 10.0
+  Timestep Intervals(1)                    = 50
+
+  Steady State Max Iterations              = 10
+End
+
+Constants
+  Stefan Boltzmann                         = 5.6703e-8
+End
+
+Solver 1
+  Equation                                 = "HeatEquations"
+  Procedure                                = "HeatSolve" "HeatSolver"
+  Variable                                 = "Temperature"
+  Exec Solver                              = "Always"
+  Stabilize                                = True
+  Bubbles                                  = False
+  Optimize Bandwidth                       = True
+  Steady State Convergence Tolerance       = 1.0e-5
+  Nonlinear System Convergence Tolerance   = 1.0e-3
+  Nonlinear System Max Iterations          = 1
+  Nonlinear System Newton After Iterations = 3
+  Nonlinear System Newton After Tolerance  = 1.0e-3
+  Nonlinear System Relaxation Factor       = 1
+  Linear System Solver                     = Iterative
+  Linear System Iterative Method           = BiCGStab
+  Linear System Max Iterations             = 500
+  Linear System Convergence Tolerance      = 1.0e-10
+  BiCGstabl polynomial degree              = 2
+  Linear System Preconditioning            = ILU0
+  Linear System ILUT Tolerance             = 1.0e-3
+  Linear System Abort Not Converged        = False
+  Linear System Residual Output            = 20
+  Linear System Precondition Recompute     = 1
+End
+
+Solver 2
+  Exec Solver                              = after saving
+  Equation                                 = "Result output"
+  Procedure                                = "ResultOutputSolve" "ResultOutputSolver"
+  Output File Name                         = "heat"
+  Vtu Format                               = Logical True
+  Binary Output                            = Logical True
+  Scalar Field 1                           = String temperature
+End
+
+
+Body 1
+  Name                                     = "pipe"
+  Target Bodies(1)                         = $pipe
+  Equation                                 = 1
+  Material                                 = 1
+  Initial Condition                        = 1
+End
+
+
+Body 2
+  Name                                     = "heater"
+  Target Bodies(1)                         = $heater
+  Equation                                 = 1
+  Material                                 = 1
+  Initial Condition                        = 2
+  Body Force                               = 1
+End
+
+Body 3
+  Name                                     = "fluid"
+  Target Bodies(1)                         = $fluid
+  Equation                                 = 1
+  Material                                 = 2
+  Initial Condition                        = 3
+End
+
+
+Equation 1
+  Name                                     = "ThermalConduction"
+  Active Solvers(2)                        = 1 2
+End
+
+
+Material 1
+  Name                                     = "Cupper" 
+  Heat Conductivity                        = 398.0    !! W/m.K
+  Heat Capacity                            = 379.0    !! J/kg.K
+  Reference Temperature                    = 293.0    !! K
+  Density                                  = 8.96e+3  !! kg/m3 
+End
+
+Material 2
+  Name                                     = "water"
+  Heat Conductivity                        = 0.602    !! W/m.K
+  Heat Capacity                            = 4.182e3  !! J/kg.K
+  Reference Temperature                    = 293.15   !! K
+  Density                                  = 997.0    !! kg/m3 
+End
+
+
+Initial Condition 1
+  Name                                     = "pipeInitial"
+  temperature                              = 293.15
+End                                      
+
+Initial Condition 2
+  Name                                     = "heaterInitial"
+  temperature                              = 293.15
+End                                      
+
+Initial Condition 3
+  Name                                     = "fluidInitial"
+  temperature                              = 293.15
+End                                      
+
+Body Force 1
+  Name                                     = "HeatSource"
+  Heat Source                              = 2.0e3 / 8.96e3
+End

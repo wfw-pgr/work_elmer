@@ -1,0 +1,216 @@
+
+!! ========================================================= !!
+!! ===  heat.sif ( heatConduction__box_in_water )        === !!
+!! ========================================================= !!
+
+!! ------------------------------------------------- !!
+!! --- [1] basics                                --- !!
+!! ------------------------------------------------- !!
+
+include "./msh/model/mesh.names"
+
+Header
+  CHECK KEYWORDS    Warn
+  Mesh DB           "." "msh/model"
+  Include Path      ""
+  Results Directory "out/"
+End
+
+Simulation
+  Max Output Level                         = 3
+  Coordinate System                        = string "Cartesian"
+  Coordinate Mapping(3)                    = 1 2 3
+
+  Simulation Type                          = "Transient"
+  TimeStepping Method                      = BDF
+  BDF Order                                = 2
+  Timestep sizes(1)                        = 10e-2
+  Timestep Intervals(1)                    = 30
+
+  Steady State Max Iterations              = 5
+End
+
+
+Constants
+  Stefan Boltzmann                         = 5.6703e-8    !!  -- [ W / m^2 K^4 ] --  !!
+  gravity(4)                               = 0 0 -1 9.82  !!  -- [ m/s^2 ] -- !!
+End
+
+
+!! ------------------------------------------------- !!
+!! --- [2] solvers / Equations                   --- !!
+!! ------------------------------------------------- !!
+
+Solver 1
+  Equation                                 = "HeatEquations"
+  Procedure                                = "HeatSolve" "HeatSolver"
+  Variable                                 = "Temperature"
+  Exec Solver                              = "Always"
+  Stabilize                                = True
+  Bubbles                                  = False
+  Optimize Bandwidth                       = True
+  Steady State Convergence Tolerance       = 1.0e-5
+  Nonlinear System Convergence Tolerance   = 1.0e-3
+  Nonlinear System Max Iterations          = 1
+  Nonlinear System Newton After Iterations = 3
+  Nonlinear System Newton After Tolerance  = 1.0e-3
+  Nonlinear System Relaxation Factor       = 1
+  Linear System Solver                     = Iterative
+  Linear System Iterative Method           = BiCGStab
+  Linear System Max Iterations             = 500
+  Linear System Convergence Tolerance      = 1.0e-10
+  BiCGstabl polynomial degree              = 2
+  Linear System Preconditioning            = ILU0
+  Linear System ILUT Tolerance             = 1.0e-3
+  Linear System Abort Not Converged        = False
+  Linear System Residual Output            = 20
+  Linear System Precondition Recompute     = 1
+End
+
+
+Solver 2
+  Equation                                 = "Navier-Stokes"
+  Procedure                                = "FlowSolve" "FlowSolver"
+  Variable                                 = Flow Solution[velocity:3,pressure:1]
+
+  Linear System Solver                     = Iterative
+  Linear System Scaling                    = Logical False
+  Linear System Direct Method              = UMFPACK
+  Linear System Iterative Method           = BiCGStab
+  Linear System Convergence Tolerance      = 1.0e-6
+  Linear System Max Iterations             = 3000
+  Linear System Preconditioning            = ILUT
+
+  Nonlinear System Convergence Tolerance   = Real 1.0e-7
+  Nonlinear System Max Iterations          = Integer 500
+  Nonlinear System Relaxation Factor       = Real 0.8
+  Nonlinear System Newton After Iterations = 15
+  Nonlinear System Newton After Tolerance  = 1.0e-3
+
+  Steady State Convergence Tolerance       = 1.0e-5
+
+  stabilize                                = True
+  Div Discretization                       = False
+End
+
+
+Solver 3
+  Exec Solver                              = after saving
+  Equation                                 = "Result output"
+  Procedure                                = "ResultOutputSolve" "ResultOutputSolver"
+  Output File Name                         = "heat"
+  Vtu Format                               = Logical True
+  Binary Output                            = Logical True
+  Scalar Field 1                           = String Temperature
+  Scalar Field 2                           = String pressure
+  Vector Field 1                           = String velocity
+End
+
+
+Equation 1
+  Name                                     = "Metals"
+  Active Solvers(2)                        = 3 1
+  !! Convection                               = Computed
+End
+
+Equation 2
+  Name                                     = "water"
+  Active Solvers(3)                        = 3 1 2
+  Convection                               = Computed
+End
+
+
+
+!! ------------------------------------------------- !!
+!! --- [3] Bodies & Materials                    --- !!
+!! ------------------------------------------------- !!
+
+Body 1
+  Name                                     = "metal"
+  Target Bodies(1)                         = $metal
+  Equation                                 = 1
+  Material                                 = 1
+  Initial Condition                        = 1
+End
+
+Body 2
+  Name                                     = "water"
+  Target Bodies(1)                         = $water
+  Equation                                 = 2
+  Material                                 = 2
+  Initial Condition                        = 2
+  Body Force                               = 1
+End
+
+Body 3
+  Name                                     = "container"
+  Target Bodies(1)                         = $container
+  Equation                                 = 1
+  Material                                 = 1
+  Initial Condition                        = 3
+End
+
+
+Material 1
+  Name                                     = "SS400" 
+  Heat Conductivity                        = 51.6      !! W/m.K
+  Heat Capacity                            = 473.0     !! J/kg.K
+  Reference Temperature                    = 293.15    !! K
+  Density                                  = 7.85e+3   !! kg/m3
+End
+
+!! Material 2
+!!   Name                                     = "H2O"
+!!   Heat Conductivity                        = 0.602     !! W/m.K
+!!   Heat Capacity                            = 4.18e3    !! J/kg.K
+!!   Reference Temperature                    = 293.15    !! K
+!!   Density                                  = 9.97e+3   !! kg/m3
+!!   Heat Expansion Coefficient               = 0.29e-3   !! 1e-6
+!!   viscosity                                = 1.18e-3   !! Pa.s
+!! End
+
+Material 2
+  Name                                     = "Air"
+  Heat Conductivity                        = 0.0257     !! W/m.K
+  Heat Capacity                            = 1.005e+3   !! J/kg.K
+  Reference Temperature                    = 293.15     !! K
+  Density                                  = 1.166e+0   !! kg/m3
+  Heat Expansion Coefficient               = 3.665e-3   !! 1e-6
+  viscosity                                = 1.512e-5   !! Pa.s
+End
+
+
+!! ------------------------------------------------- !!
+!! --- [5] initial & boundary Condition          --- !!
+!! ------------------------------------------------- !!
+
+Initial Condition 1
+  Name                                     = "SS400.initial"
+  temperature                              = 673.15    !! = 400 degree
+End                                      
+
+Initial Condition 2
+  Name                                     = "water.initial"
+  temperature                              = 293.15    !! =  20 degree
+End                                      
+
+Initial Condition 3
+  Name                                     = "water.initial"
+  temperature                              = 293.15    !! =  20 degree
+End
+
+Boundary Condition 1
+  Name                                     = "water.boundary"
+  Target Boundaries(1)                     = $boundary
+  velocity 1                               = 0.0
+  velocity 2                               = 0.0
+  velocity 3                               = 0.0
+End  
+
+!! ------------------------------------------------- !!
+!! --- [6] others                                --- !!
+!! ------------------------------------------------- !!
+Body Force 1
+  Name                                     = "BousinesqApprox"
+  Bousinesq                                = Logical True
+End
