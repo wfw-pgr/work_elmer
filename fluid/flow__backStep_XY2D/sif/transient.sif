@@ -1,0 +1,110 @@
+
+include "./msh/model/mesh.names"
+
+Header
+  CHECK KEYWORDS    Warn
+  Mesh DB           "." "msh/model"
+  Include Path      ""
+  Results Directory "out/"
+End
+
+Simulation
+  Max Output Level                         = 3
+  Coordinate System                        = string "Cartesian"
+  Coordinate Mapping(3)                    = 1 2 3
+
+  Simulation Type                          = "Steady"
+
+
+  Simulation Type                          = "Transient"
+
+
+  TimeStepping Method                      = BDF
+  BDF Order                                = 2
+  Timestep sizes(1)                        = 50e-3
+  Timestep Intervals(1)                    = 200
+
+  Steady State Max Iterations              = 30
+  Post File                                = output.vtu
+End
+
+Constants
+  Gravity(4)                               = 0 0 -1 9.82	!! m/s^2
+End
+
+Solver 1
+  Equation                                 = Navier-Stokes
+
+  Linear System Solver                     = Iterative
+  Linear System Scaling                    = Logical False
+  Linear System Direct Method              = UMFPACK
+  Linear System Iterative Method           = BiCGStab
+  Linear System Convergence Tolerance      = 1.0e-6
+  Linear System Max Iterations             = 3000
+  Linear System Preconditioning            = ILUT
+
+  Nonlinear System Convergence Tolerance   = Real 1.0e-7
+  Nonlinear System Max Iterations          = Integer 500
+  Nonlinear System Relaxation Factor       = Real 0.8
+  Nonlinear System Newton After Iterations = 15
+  Nonlinear System Newton After Tolerance  = 1.0e-3
+
+  Steady State Convergence Tolerance       = 1.0e-6
+
+  stabilize                                = True
+  Div Discretization                       = True
+End
+
+
+Body 1
+  Name                                     = "Fluid"
+  Target Bodies(1)                         = $fluid
+  Equation                                 = 1
+  Material                                 = 1
+End
+
+
+Equation 1
+  Name                                     = "Fluid"
+  Active Solvers(1)                        = 1
+  Navier-Stokes                            = True
+End
+
+Material 1
+  Name                                     = "Air"
+  Density                                  = 1.2e0      !! kg/m3
+  Viscosity                                = 1.0e-5
+End
+
+Boundary Condition 1
+  Name                                     = "left"
+  Target Boundaries(1)                     = $left
+
+  Velocity 1                               = 0.05
+  Velocity 2                               = 0
+  Velocity 3                               = 0
+End
+
+Boundary Condition 2
+  Name                                     = "right"
+  Target Boundaries(1)                     = $right
+  Pressure                                 = 0.0
+End
+
+Boundary Condition 3
+  Name                                     = "top"
+  Target Boundaries(1)                     = $top
+  Velocity 1                               = 0
+  Velocity 2                               = 0
+  Velocity 3                               = 0
+End
+
+
+Boundary Condition 4
+  Name                                     = "bottom"
+  Target Boundaries(1)                     = $bottom
+  Velocity 1                               = 0
+  Velocity 2                               = 0
+  Velocity 3                               = 0
+End
+

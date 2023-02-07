@@ -26,10 +26,10 @@ Simulation
   Simulation Type                          = "Transient"
   TimeStepping Method                      = BDF
   BDF Order                                = 2
-  Timestep sizes(1)                        = 1e-1
-  Timestep Intervals(1)                    = 50
+  Timestep sizes(1)                        = 5e-2
+  Timestep Intervals(1)                    = 100
 
-  Steady State Max Iterations              = 5
+  Steady State Max Iterations              = 10
 End
 
 
@@ -48,19 +48,20 @@ Solver 1
   Procedure                                = "HeatSolve" "HeatSolver"
   Variable                                 = "Temperature"
   Exec Solver                              = "Always"
-  Stabilize                                = True
+  Stabilize                                = False
   Bubbles                                  = False
   Optimize Bandwidth                       = True
+  
   Steady State Convergence Tolerance       = 1.0e-5
   Nonlinear System Convergence Tolerance   = 1.0e-4
-  Nonlinear System Max Iterations          = 1
-  Nonlinear System Newton After Iterations = 3
-  Nonlinear System Newton After Tolerance  = 1.0e-3
+  Nonlinear System Max Iterations          = 300
+  Nonlinear System Newton After Iterations = 15
+  Nonlinear System Newton After Tolerance  = 1.0e-4
   Nonlinear System Relaxation Factor       = 1
   Linear System Solver                     = Iterative
   Linear System Iterative Method           = BiCGStab
   Linear System Max Iterations             = 500
-  Linear System Convergence Tolerance      = 1.0e-10
+  Linear System Convergence Tolerance      = 1.0e-8
   BiCGstabl polynomial degree              = 2
   Linear System Preconditioning            = ILU0
   Linear System ILUT Tolerance             = 1.0e-3
@@ -74,9 +75,10 @@ Solver 2
   Equation                                 = "Navier-Stokes"
   Procedure                                = "FlowSolve" "FlowSolver"
   Variable                                 = Flow Solution[velocity:3,pressure:1]
-  Stabilize                                = True
-  Bubbles                                  = False
   Optimize Bandwidth                       = True
+  stabilize                                = False
+  Bubbles                                  = False
+  Div Discretization                       = True
 
   Linear System Solver                     = Iterative
   Linear System Scaling                    = Logical False
@@ -85,17 +87,13 @@ Solver 2
   Linear System Convergence Tolerance      = 1.0e-6
   Linear System Max Iterations             = 3000
   Linear System Preconditioning            = ILUT
-
+ 
+  Steady State Convergence Tolerance       = 1.0e-5
   Nonlinear System Convergence Tolerance   = Real 1.0e-4
   Nonlinear System Max Iterations          = Integer 300
   Nonlinear System Relaxation Factor       = Real 0.6
   Nonlinear System Newton After Iterations = 20
   Nonlinear System Newton After Tolerance  = 1.0e-3
-
-  Steady State Convergence Tolerance       = 1.0e-4
-
-  stabilize                                = True
-  Div Discretization                       = True
 End
 
 
