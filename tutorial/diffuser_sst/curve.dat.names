@@ -1,0 +1,25 @@
+Metadata for SaveLine file: curve.dat
+Elmer version: 9.0
+Elmer revision: 4905370d4
+Elmer compilation date: 2023-01-20
+Solver input file: diffuser_sst.sif
+File started at: 2023/02/12 12:01:10
+Number of data nodes for each step
+  bc nodes: 0
+  polyline nodes: 0
+  circle nodes: 0
+  isocurve nodes: 0
+Data on different columns
+  1: Call count
+  2: Boundary condition
+  3: Node index
+  4: coordinate 1
+  5: coordinate 2
+  6: coordinate 3
+  7: wall distance
+  8: kinetic energy
+  9: kinetic dissipation
+ 10: velocity 1
+ 11: velocity 2
+ 12: pressure
+ 13: awall distance

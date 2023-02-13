@@ -214,9 +214,9 @@ End
 Boundary Condition 1
   Name                                     = "fluid.boundary"
   Target Boundaries(2)                     = 102 103
-  Normal-Tangential Velocity               = True
-  velocity 1                               = 0.0
-  !! Noslip Wall BC                           = True
+  !! Normal-Tangential Velocity               = True
+  !! velocity 1                               = 0.0
+  Noslip Wall BC                           = True
 End
 
 
