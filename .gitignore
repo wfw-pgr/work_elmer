@@ -1,6 +1,8 @@
 *.msh
 *.bdf
 *.stp
+*.grd
+*.ep
 mesh.nodes
 mesh.elements
 mesh.names
@@ -13,4 +15,6 @@ entities.sif
 *.png
 *.gif
 *.jpg
+tutorial/*
+.DS_Store
 __pycache__
