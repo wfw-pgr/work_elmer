@@ -29,11 +29,14 @@ if ( __name__=="__main__" ):
     inpFile = "dat/geometry.conf"
     bdrFile = "dat/boundary.json"
     dimtags = geo.geometrize__fromTable( inpFile=inpFile, dimtags=dimtags )
-    dimtags = {}
     dimtags = ldt.load__dimtags( dimtags=dimtags, inpFile=bdrFile )
     gmsh.model.occ.synchronize()
     gmsh.model.occ.removeAllDuplicates()
     gmsh.model.occ.synchronize()
+
+    fluid_bdr            = gmsh.model.getBoundary( dimtags["fluid"] )
+    dimtags["fluid_bdr"] = list( set( fluid_bdr ) - set( dimtags["inlet"] ) \
+                                 - set( dimtags["outlet"] ) )
 
     # ------------------------------------------------- #
     # --- [3] Mesh settings                         --- #

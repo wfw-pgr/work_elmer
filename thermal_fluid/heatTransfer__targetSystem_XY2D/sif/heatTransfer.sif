@@ -23,8 +23,8 @@ Simulation
   Simulation Type                          = "Transient"
   TimeStepping Method                      = BDF
   BDF Order                                = 2
-  Timestep sizes(1)                        = 1e-1
-  Timestep Intervals(1)                    = 1000
+  Timestep sizes(1)                        = 1e-3
+  Timestep Intervals(1)                    = 100
 
   Steady State Max Iterations              = 200
   Post File                                = heatTransfer.vtu
@@ -50,15 +50,15 @@ Solver 1
   !! Linear System Iterative Method           = BiCGStab
   Linear System Max Iterations             = 10000
   Linear System Preconditioning            = ILUT
-  Linear System Convergence Tolerance      = 1.0e-5
+  Linear System Convergence Tolerance      = 1.0e-6
 
   Nonlinear System Max Iterations          = 1
-  Nonlinear System Convergence Tolerance   = 1.0e-5
+  Nonlinear System Convergence Tolerance   = 1.0e-4
   Nonlinear System Relaxation Factor       = 0.5
   Nonlinear System Newton After Tolerance  = 0.0
   Nonlinear System Newton After Iterations = 10000
 
-  Steady State Convergence Tolerance       = 1.0e-5
+  Steady State Convergence Tolerance       = 1.0e-3
 End
 
 
@@ -71,16 +71,16 @@ Solver 2
   Linear System Direct Method              = String "umfpack"
   !! Linear System Iterative Method           = BiCGStab
   Linear System Max Iterations             = 10000
-  Linear System Convergence Tolerance      = 1.0e-5
+  Linear System Convergence Tolerance      = 1.0e-6
   Linear System Preconditioning            = ILUT
 
   Nonlinear System Max Iterations          = 1
-  Nonlinear System Convergence Tolerance   = 1.0e-5
+  Nonlinear System Convergence Tolerance   = 1.0e-4
   Nonlinear System Relaxation Factor       = 0.5
   Nonlinear System Newton After Tolerance  = 0.0
   Nonlinear System Newton After Iterations = 10000
 
-  Steady State Convergence Tolerance       = 1.0e-5
+  Steady State Convergence Tolerance       = 1.0e-3
 End
 
 
@@ -95,19 +95,18 @@ Solver 3
 
   Linear System Solver                     = Iterative
   Linear System Iterative Method           = BiCGStab
-  Linear System Max Iterations             = 500
+  Linear System Max Iterations             = 10000
   Linear System Convergence Tolerance      = 1.0e-8
   Linear System Preconditioning            = ILU0
   Linear System Precondition Recompute     = 1
 
-  Steady State Convergence Tolerance       = 1.0e-5
   Nonlinear System Convergence Tolerance   = 1.0e-4
   Nonlinear System Max Iterations          = 1
-  Nonlinear System Newton After Iterations = 10000
-  Nonlinear System Newton After Tolerance  = 0.0
   Nonlinear System Relaxation Factor       = 0.5
+  Nonlinear System Newton After Tolerance  = 0.0
+  Nonlinear System Newton After Iterations = 10000
 
-  Steady State Convergence Tolerance       = 1.0e-5
+  Steady State Convergence Tolerance       = 1.0e-3
 End
 
 
@@ -187,16 +186,18 @@ End
 !! --- [4] initial boundary condition            --- !!
 !! ------------------------------------------------- !!
 
-$ T_metal     = 473.15
-$ T_fluid     = 293.15
-$ T_container = 293.15
+$ T_metal             = 473.15
+$ T_fluid             = 293.15
+$ T_container         = 293.15
 
-$ kinetic_energy      = 4.57e-3
-$ kinetic_dissipation = 1.00e-4
+$ wind_in_velocity    = -1.50
+$ wind_in_temperature = 293.15
+$ kinetic_energy      = 8.64e-1
+$ kinetic_dissipation = 1.90e+2
 
 Initial Condition 1
   Name                                     = "metal.initial"
-  Temperature                              = $T_metal
+  Temperature                              = $ T_metal
 End
 
 Initial Condition 2
@@ -211,37 +212,30 @@ End
 
 Initial Condition 3
   Name                                     = "container.initial"
-  Temperature                              = $T_container
+  Temperature                              = $ T_container
 End
 
 
 Boundary Condition 1
-  Name                                     = "inlet"
-  Target Boundaries(1)                     = $inlet
-  velocity 1                               = -0.1
+  Name                                     =  "inlet"
+  Target Boundaries(1)                     = $ inlet
+  velocity 1                               = $ wind_in_velocity
   velocity 2                               =  0.0
-  Kinetic Energy                           = $kinetic_energy
-  Kinetic Dissipation                      = $kinetic_dissipation
-  !! Normal-Tangential Velocity               = True
-  !! velocity 1                               = 0.0
-  !! Noslip Wall BC                           = True
+  temperature                              = $ wind_in_temperature
+  Kinetic Energy                           = $ kinetic_energy
+  Kinetic Dissipation                      = $ kinetic_dissipation
 End
 
 Boundary Condition 2
-  Name                                     = "outlet"
-  Target Boundaries(1)                     = 113
+  Name                                     =  "outlet"
+  Target Boundaries(1)                     = $ outlet
   Pressure                                 = 0.0
   velocity 2                               = 0.0
-  !! Normal-Tangential Velocity               = True
-  !! velocity 1                               = 0.0
-  !! Noslip Wall BC                           = True
 End
 
 Boundary Condition 3
-  Name                                     = "fluid_bdr"
-  Target Boundaries(1)                     = $fluid_bdr
-  !! Normal-Tangential Velocity               = True
-  !! velocity 1                               = 0.0
+  Name                                     =  "fluid_bdr"
+  Target Boundaries(1)                     = $ fluid_bdr
   Noslip Wall BC                           = True
 End
 
